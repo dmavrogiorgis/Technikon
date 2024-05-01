@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Data
 @Entity
@@ -16,12 +18,7 @@ public class Repair {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private LocalDate dateOfRepair;
+    private String typeOfRepair;
     private String description;
-    @Column(nullable = false)
-    @Enumerated(value = EnumType.STRING)
-    private StatusOfRepair statusOfRepair = StatusOfRepair.PENDING;
-    private TypeOfRepair typeOfRepair;
     private BigDecimal costOfRepair;
-
 }
