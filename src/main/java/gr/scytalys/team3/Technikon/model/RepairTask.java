@@ -1,14 +1,17 @@
 package gr.scytalys.team3.Technikon.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Order {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RepairTask {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,5 +19,7 @@ public class Order {
     @ManyToOne
     private Repair repair;
     @ManyToOne
+    @JoinColumn(name = "propertyId", nullable = false)
     private Property property;
+    private String workDescription;
 }

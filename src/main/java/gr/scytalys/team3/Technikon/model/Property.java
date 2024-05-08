@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,14 +16,17 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long propertyId;
     @Column(unique = true)
-    private String propertyIN;
+    private long propertyIN;
     private String address;
     private String yearOfConstruct;
     @ManyToOne
     @NotNull
     private PropertyOwner propertyOwner;
     private String picturePath;
-    private String latitude;
-    private String longitude;
+    @Embedded
+    private PropertyCoordinates propertyCoordinates;
     private TypeOfProperty typeOfProperty;
+    @OneToMany(mappedBy = "property")
+    private List<RepairTask> repairTasks;
+
 }
