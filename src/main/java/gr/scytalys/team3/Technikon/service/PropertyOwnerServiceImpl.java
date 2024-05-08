@@ -1,4 +1,4 @@
-package gr.scytalys.team3.Technikon.bootstrap.service;
+package gr.scytalys.team3.Technikon.service;
 
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import lombok.AllArgsConstructor;
