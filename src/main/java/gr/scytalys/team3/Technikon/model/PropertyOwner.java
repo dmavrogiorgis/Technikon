@@ -20,20 +20,23 @@ public class PropertyOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private long tin;
     private String name;
-    private String lastname;
+    private String surname;
     private String address;
     private String phoneNumber;
     @Email
+    @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
+    @NotNull
     private String password;
+    private boolean isActive = true;
+
     @JsonIgnore
     @OneToMany (mappedBy = "propertyOwner")
     private List<Property> properties = new ArrayList<>();
-    private boolean active = true;
+
 }
