@@ -21,7 +21,7 @@ public class PropertyOwner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true, nullable = false)
-    private long tin;
+    private String tin;
     private String name;
     private String surname;
     private String address;

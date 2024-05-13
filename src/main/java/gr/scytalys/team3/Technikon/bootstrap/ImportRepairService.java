@@ -1,6 +1,8 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
+import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.math.BigDecimal;
 @Slf4j
 public class ImportRepairService {
 private RepairRepository repairRepository;
+private PropertyOwnerRepository propertyOwnerRepository;
     @Bean
     public CommandLineRunner myCommandLineRunner(){
         return this::run;
@@ -45,5 +48,19 @@ private RepairRepository repairRepository;
         repair4.setCostOfRepair(new BigDecimal(110));
         repair4.setTypeOfRepair("ELECTRICAL WORK");
         repairRepository.save(repair4);
+
+        PropertyOwner propertyOwner = new PropertyOwner();
+        propertyOwner.setTin("123456789");
+        propertyOwner.setName("Dimitris");
+        propertyOwner.setSurname("Mavrogiorgis");
+        propertyOwner.setAddress("Something");
+        propertyOwner.setPhoneNumber("6976500964");
+        propertyOwner.setEmail("kati@gmail.com");
+        propertyOwner.setUsername("dimmav");
+        propertyOwner.setPassword("1234");
+        propertyOwner.setActive(true);
+
+        propertyOwnerRepository.save(propertyOwner);
+
     }
 }

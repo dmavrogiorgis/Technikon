@@ -1,6 +1,7 @@
 package gr.scytalys.team3.Technikon.controller;
 
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
+import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -34,4 +35,12 @@ public class ApiExceptionHandler {
         headers.add("message", ex.getMessage());
         return new ResponseEntity<>(null, headers, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<PropertyOwner> handleEntityNotFoundException(EntityNotFoundException ex) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("message", ex.getMessage());
+        return new ResponseEntity<>(null, headers, HttpStatus.NOT_FOUND);
+    }
+
 }
