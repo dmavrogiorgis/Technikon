@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class PropertyOwnerDTO {
 
     private long id;
-    private long tin;
+    private String tin;
     private String name;
     private String surname;
     private String address;

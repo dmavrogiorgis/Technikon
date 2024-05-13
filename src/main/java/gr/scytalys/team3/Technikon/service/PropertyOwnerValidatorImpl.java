@@ -13,8 +13,7 @@ public class PropertyOwnerValidatorImpl implements PropertyOwnerValidator {
     private static final String phoneNumberRegexPattern = "^69[0-9]{8}$";
 
     @Override
-    public void validatePropertyOwner(long tin, String email, String phoneNumber) {
-
+    public void validatePropertyOwner(String tin, String email, String phoneNumber) {
 
         if (!isTINValid(tin)) {
             throw new InvalidParameterException("Invalid TIN: " + tin);
@@ -29,11 +28,12 @@ public class PropertyOwnerValidatorImpl implements PropertyOwnerValidator {
         }
     }
 
-    public boolean isTINValid(long tin){
-        return Pattern.matches(tinRegexPattern, Long.toString(tin));
+    @Override
+    public boolean isTINValid(String tin){
+        return Pattern.matches(tinRegexPattern, tin.trim());
     }
 
-    private boolean isEmailValid(String email){
+    public boolean isEmailValid(String email){
         return Pattern.matches(emailRegexPattern, email.trim());
     }
 

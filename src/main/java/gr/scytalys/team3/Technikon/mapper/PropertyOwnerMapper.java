@@ -14,4 +14,6 @@ public interface PropertyOwnerMapper {
     PropertyOwnerDTO toPropertyOwnerDto(PropertyOwner propertyOwner);
 
     PropertyOwner toPropertyOwner(PropertyOwnerDTO propertyOwnerDTO);
+
+
 }
