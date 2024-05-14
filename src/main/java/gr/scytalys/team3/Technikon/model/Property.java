@@ -15,8 +15,8 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long propertyId;
-    @Column(unique = true)
-    private long propertyIN;
+    @Column(unique = true, nullable = false)
+    private String propertyIN;
     private String address;
     private String yearOfConstruct;
     @ManyToOne

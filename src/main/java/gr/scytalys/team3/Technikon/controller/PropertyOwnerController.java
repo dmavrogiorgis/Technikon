@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/owner")
 @AllArgsConstructor
+@RequestMapping("api/owner")
 public class PropertyOwnerController {
 
     private final PropertyOwnerService propertyOwnerService;

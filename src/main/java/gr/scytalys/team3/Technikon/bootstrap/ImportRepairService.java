@@ -1,8 +1,10 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
+import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
+import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +18,10 @@ import java.math.BigDecimal;
 @Configuration
 @Slf4j
 public class ImportRepairService {
-private RepairRepository repairRepository;
-private PropertyOwnerRepository propertyOwnerRepository;
+private final RepairRepository repairRepository;
+private final PropertyOwnerRepository propertyOwnerRepository;
+private final PropertyRepository propertyRepository;
+
     @Bean
     public CommandLineRunner myCommandLineRunner(){
         return this::run;
@@ -62,5 +66,9 @@ private PropertyOwnerRepository propertyOwnerRepository;
 
         propertyOwnerRepository.save(propertyOwner);
 
+        Property property = new Property();
+        property.setPropertyIN("123456789");
+        property.setPropertyOwner(propertyOwner);
+        propertyRepository.save(property);
     }
 }

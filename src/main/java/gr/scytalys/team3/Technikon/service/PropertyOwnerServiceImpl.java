@@ -10,22 +10,26 @@ import gr.scytalys.team3.Technikon.repository.PropertyOwnerSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.security.InvalidParameterException;
+import java.util.List;
 
-@AllArgsConstructor
+
 @Service
+@AllArgsConstructor
 public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     private final PropertyOwnerRepository propertyOwnerRepository;
-    private final PropertyOwnerMapper propertyOwnerMapper;
     private final PropertyOwnerValidator propertyOwnerValidator;
+    private final PropertyOwnerMapper propertyOwnerMapper;
 
     @Override
     @Transactional
+    @CacheEvict(value = "myPropertyOwners", allEntries = true)
     public PropertyOwnerDTO createPropertyOwner(PropertyOwnerDTO propertyOwnerDTO) {
 
         if (propertyOwnerDTO == null) {
@@ -36,17 +40,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                                                      propertyOwnerDTO.getEmail(),
                                                      propertyOwnerDTO.getPhoneNumber());
 
-        try {
-            return propertyOwnerMapper
-                        .toPropertyOwnerDto(propertyOwnerRepository
-                                                .save(propertyOwnerMapper
-                                                        .toPropertyOwner(propertyOwnerDTO)));
-        } catch (Exception e) {
-            throw new DataIntegrityViolationException(e.getMessage());
-        }
+        return propertyOwnerMapper
+                    .toPropertyOwnerDto(propertyOwnerRepository
+                                            .save(propertyOwnerMapper
+                                                    .toPropertyOwner(propertyOwnerDTO)));
     }
 
     @Override
+    @Cacheable("myPropertyOwners")
     public PropertyOwnerDTO searchPropertyOwner(PropertyOwnerSearchDTO propertyOwnerSearchDTO) {
 
         if (propertyOwnerSearchDTO == null) {
@@ -80,19 +81,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "myPropertyOwners", allEntries = true)
     public void updatePropertyOwner(String propertyOwnerTIN, PropertyOwnerUpdateDTO propertyOwnerUpdateDTO) {
 
         if (propertyOwnerTIN == null) {
             throw new InvalidParameterException("TIN should not be null!");
         }
 
-        Specification<PropertyOwner> spec = Specification.where(PropertyOwnerSpecifications.isActive()); //To ensure that inactive users cannot change their data
-        spec = spec.and(PropertyOwnerSpecifications.tinEquals(propertyOwnerTIN));
-
-        //TO MAKE A SEPARATE METHOD searchByTIN
-        PropertyOwner propertyOwnerDB = propertyOwnerRepository
-                                            .findOne(spec)
-                                            .orElseThrow(() -> new EntityNotFoundException("Property owner not found!"));
+        PropertyOwner propertyOwnerDB = getPropertyOwnerByTINSpec(propertyOwnerTIN);
 
         if (propertyOwnerUpdateDTO == null) {
             throw new NullArgumentException("Property Owner to update is null!");
@@ -120,7 +116,30 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "myPropertyOwners", allEntries = true)
     public void deletePropertyOwner(String propertyOwnerTIN) {
+        if (propertyOwnerTIN == null) {
+            throw new InvalidParameterException("TIN should not be null!");
+        }
 
+        PropertyOwner propertyOwnerDB = getPropertyOwnerByTINSpec(propertyOwnerTIN);
+
+        List<String> properties = propertyOwnerRepository.findPropertiesByPropertyOwnerTIN(propertyOwnerTIN);
+        if (properties.isEmpty()){
+            propertyOwnerRepository.deleteById(propertyOwnerDB.getId());
+        }else {
+            propertyOwnerDB.setActive(false);
+            propertyOwnerRepository.save(propertyOwnerDB);
+        }
+    }
+
+    private PropertyOwner getPropertyOwnerByTINSpec(String propertyOwnerTIN){
+        Specification<PropertyOwner> spec = Specification.where(PropertyOwnerSpecifications.isActive()); //To ensure that inactive users cannot change their data
+        spec = spec.and(PropertyOwnerSpecifications.tinEquals(propertyOwnerTIN));
+
+        //TO MAKE A SEPARATE METHOD searchByTIN
+        return propertyOwnerRepository
+                    .findOne(spec)
+                    .orElseThrow(() -> new EntityNotFoundException("Property owner not found!"));
     }
 }
