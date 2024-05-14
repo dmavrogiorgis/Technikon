@@ -18,13 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-@AllArgsConstructor
+
 @Service
+@AllArgsConstructor
 public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     private final PropertyOwnerRepository propertyOwnerRepository;
-    private final PropertyOwnerMapper propertyOwnerMapper;
     private final PropertyOwnerValidator propertyOwnerValidator;
+    private final PropertyOwnerMapper propertyOwnerMapper;
 
     @Override
     @Transactional
