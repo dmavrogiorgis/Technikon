@@ -1,4 +1,4 @@
-package gr.scytalys.team3.Technikon.model;
+package gr.scytalys.team3.Technikon.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

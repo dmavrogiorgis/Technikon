@@ -2,7 +2,7 @@ package gr.scytalys.team3.Technikon.service;
 
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerDTO;
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerSearchDTO;
-import gr.scytalys.team3.Technikon.model.PropertyOwnerUpdateDTO;
+import gr.scytalys.team3.Technikon.dto.PropertyOwnerUpdateDTO;
 
 public interface PropertyOwnerService {
     //CREATE PROPERTY OWNER
