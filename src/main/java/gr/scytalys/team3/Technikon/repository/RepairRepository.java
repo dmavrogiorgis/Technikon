@@ -2,9 +2,14 @@ package gr.scytalys.team3.Technikon.repository;
 
 import gr.scytalys.team3.Technikon.model.Repair;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface RepairRepository extends JpaRepository<Repair, Long> {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
+@Repository
+public interface RepairRepository extends JpaRepository<Repair, Long>, JpaSpecificationExecutor<Repair> {
+    List<Repair> findRepairsByRepairDate(LocalDate repairDate);
 }

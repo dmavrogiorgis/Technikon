@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 import java.util.ArrayList;
@@ -34,8 +35,6 @@ public class PropertyOwner {
     @NotNull
     private String password;
     private boolean isActive = true;
-
-    @JsonIgnore
     @OneToMany (mappedBy = "propertyOwner")
     private List<Property> properties = new ArrayList<>();
 

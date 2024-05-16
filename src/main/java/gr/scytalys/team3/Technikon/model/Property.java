@@ -1,5 +1,6 @@
 package gr.scytalys.team3.Technikon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -19,14 +20,16 @@ public class Property {
     private long propertyIN;
     private String address;
     private String yearOfConstruct;
+    private String picturePath;
     @ManyToOne
     @NotNull
+    @JsonIgnore
     private PropertyOwner propertyOwner;
-    private String picturePath;
     @Embedded
     private PropertyCoordinates propertyCoordinates;
     private TypeOfProperty typeOfProperty;
+    @JsonIgnore
     @OneToMany(mappedBy = "property")
-    private List<RepairTask> repairTasks;
+    private List<Repair> repairs;
 
 }
