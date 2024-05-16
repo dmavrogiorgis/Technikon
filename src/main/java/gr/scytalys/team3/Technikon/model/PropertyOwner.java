@@ -3,7 +3,6 @@ package gr.scytalys.team3.Technikon.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,16 +21,20 @@ public class PropertyOwner {
     private long id;
     @Column(unique = true, nullable = false)
     private String tin;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String surname;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String phoneNumber;
     @Email
     @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true, nullable = false)
     private String username;
-    @NotNull
+    @Column(nullable = false)
     private String password;
     private boolean isActive = true;
 

@@ -2,7 +2,7 @@ package gr.scytalys.team3.Technikon.controller;
 
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerDTO;
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerSearchDTO;
-import gr.scytalys.team3.Technikon.model.PropertyOwnerUpdateDTO;
+import gr.scytalys.team3.Technikon.dto.PropertyOwnerUpdateDTO;
 import gr.scytalys.team3.Technikon.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;

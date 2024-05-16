@@ -1,5 +1,6 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
+import com.github.javafaker.Faker;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
@@ -21,6 +22,8 @@ public class ImportRepairService {
 private final RepairRepository repairRepository;
 private final PropertyOwnerRepository propertyOwnerRepository;
 private final PropertyRepository propertyRepository;
+
+    private final static int numOfIterations = 20;
 
     @Bean
     public CommandLineRunner myCommandLineRunner(){
@@ -53,22 +56,35 @@ private final PropertyRepository propertyRepository;
         repair4.setTypeOfRepair("ELECTRICAL WORK");
         repairRepository.save(repair4);
 
-        PropertyOwner propertyOwner = new PropertyOwner();
-        propertyOwner.setTin("123456789");
-        propertyOwner.setName("Dimitris");
-        propertyOwner.setSurname("Mavrogiorgis");
-        propertyOwner.setAddress("Something");
-        propertyOwner.setPhoneNumber("6976500964");
-        propertyOwner.setEmail("kati@gmail.com");
-        propertyOwner.setUsername("dimmav");
-        propertyOwner.setPassword("1234");
-        propertyOwner.setActive(true);
+        Faker faker = new Faker();
+        for (int i=0; i<numOfIterations; i++){
+            PropertyOwner po = createRandomPO();
+            propertyOwnerRepository.save(po);
 
-        propertyOwnerRepository.save(propertyOwner);
+            double randomNum = Math.random();
 
-        Property property = new Property();
-        property.setPropertyIN("123456789");
-        property.setPropertyOwner(propertyOwner);
-        propertyRepository.save(property);
+            if (randomNum > 0.5){
+                Property property = new Property();
+                property.setPropertyIN(faker.number().digits(9));
+                property.setPropertyOwner(po);
+                propertyRepository.save(property);
+            }
+        }
+    }
+
+    public PropertyOwner createRandomPO(){
+        Faker faker = new Faker();
+
+        PropertyOwner po = new PropertyOwner();
+        po.setTin(faker.number().digits(9));
+        po.setName(faker.name().firstName());
+        po.setSurname(faker.name().lastName());
+        po.setAddress(faker.address().fullAddress());
+        po.setPhoneNumber("69" + faker.numerify("##########"));
+        po.setEmail(faker.internet().emailAddress());
+        po.setUsername(faker.name().username());
+        po.setPassword(faker.internet().password());
+        po.setActive(true);
+        return po;
     }
 }
