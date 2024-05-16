@@ -1,9 +1,9 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
+import com.github.javafaker.Faker;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
-import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -21,6 +21,12 @@ import java.util.List;
 @Configuration
 @Slf4j
 public class ImportRepairService {
+private final RepairRepository repairRepository;
+private final PropertyOwnerRepository propertyOwnerRepository;
+private final PropertyRepository propertyRepository;
+
+    private final static int numOfIterations = 20;
+
 private RepairRepository repairRepository;
 private PropertyRepository propertyRepository;
 private PropertyOwnerRepository propertyOwnerRepository;
@@ -30,27 +36,6 @@ private PropertyOwnerRepository propertyOwnerRepository;
     }
 
     private void run(String... args) {
-        PropertyOwner propertyOwner = new PropertyOwner();
-        propertyOwner.setActive(true);
-        propertyOwner.setName("mpampis");
-        propertyOwner.setUsername("tenes");
-        propertyOwner.setTin(12345678);
-        propertyOwner.setEmail("mpampis@tenes.gr");
-        propertyOwner.setPassword("tsili123");
-        propertyOwnerRepository.save(propertyOwner);
-
-        Property property = new Property();
-        property.setAddress("aqqwer");
-        property.setPropertyIN(234);
-        property.setPropertyOwner(propertyOwner);
-        propertyRepository.save(property);
-
-        Property property1 = new Property();
-        property1.setAddress("aqqwer");
-        property1.setPropertyIN(2345);
-        property1.setPropertyOwner(propertyOwner);
-        propertyRepository.save(property1);
-
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
         repair.setTypeOfRepair(TypeOfRepair.valueOf("PAINTING"));
@@ -83,6 +68,37 @@ private PropertyOwnerRepository propertyOwnerRepository;
         repair4.setTypeOfRepair(TypeOfRepair.valueOf("ELECTRICAL_WORK"));
         repair4.setRepairDate(LocalDate.of(2024, 05, 20));
         repairRepository.save(repair4);
+
+        Faker faker = new Faker();
+        for (int i=0; i<numOfIterations; i++){
+            PropertyOwner po = createRandomPO();
+            propertyOwnerRepository.save(po);
+
+            double randomNum = Math.random();
+
+            if (randomNum > 0.5){
+                Property property = new Property();
+                property.setPropertyIN(faker.number().digits(9));
+                property.setPropertyOwner(po);
+                propertyRepository.save(property);
+            }
+        }
+    }
+
+    public PropertyOwner createRandomPO(){
+        Faker faker = new Faker();
+
+        PropertyOwner po = new PropertyOwner();
+        po.setTin(faker.number().digits(9));
+        po.setName(faker.name().firstName());
+        po.setSurname(faker.name().lastName());
+        po.setAddress(faker.address().fullAddress());
+        po.setPhoneNumber("69" + faker.numerify("##########"));
+        po.setEmail(faker.internet().emailAddress());
+        po.setUsername(faker.name().username());
+        po.setPassword(faker.internet().password());
+        po.setActive(true);
+        return po;
 
         Repair repair5 = new Repair();
         repair5.setCostOfRepair(new BigDecimal(110));

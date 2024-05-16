@@ -3,7 +3,6 @@ package gr.scytalys.team3.Technikon.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,20 +19,27 @@ public class PropertyOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotNull
-    @Column(unique = true)
-    private long tin;
+    @Column(unique = true, nullable = false)
+    private String tin;
+    @Column(nullable = false)
     private String name;
-    private String lastname;
+    @Column(nullable = false)
+    private String surname;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String phoneNumber;
     @Email
+    @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(nullable = false)
     private String password;
+    private boolean isActive = true;
+
     @JsonIgnore
     @OneToMany (mappedBy = "propertyOwner")
     private List<Property> properties = new ArrayList<>();
-    private boolean active = true;
+
 }
