@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 
 import java.util.ArrayList;
@@ -21,21 +20,20 @@ public class PropertyOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(unique = true, nullable = false)
+    @NotNull
+    @Column(unique = true)
     private long tin;
     private String name;
-    private String surname;
+    private String lastname;
     private String address;
     private String phoneNumber;
     @Email
-    @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String username;
-    @NotNull
     private String password;
-    private boolean isActive = true;
+    @JsonIgnore
     @OneToMany (mappedBy = "propertyOwner")
     private List<Property> properties = new ArrayList<>();
-
+    private boolean active = true;
 }
