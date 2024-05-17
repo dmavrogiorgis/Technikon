@@ -1,6 +1,5 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
-import com.github.javafaker.Faker;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;

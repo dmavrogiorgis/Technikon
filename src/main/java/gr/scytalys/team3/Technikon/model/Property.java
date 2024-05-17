@@ -15,18 +15,20 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long propertyId;
-    @Column(unique = true, nullable = false)
-    private String propertyIN;
+    @Column(unique = true)
+    private long propertyIN;
     private String address;
-    private String yearOfConstruct;
+    private long yearOfConstruct;
     @ManyToOne
     @NotNull
     private PropertyOwner propertyOwner;
     private String picturePath;
-    @Embedded
-    private PropertyCoordinates propertyCoordinates;
+//    @Embedded
+//    private PropertyCoordinates propertyCoordinates;
     private TypeOfProperty typeOfProperty;
     @OneToMany(mappedBy = "property")
     private List<RepairTask> repairTasks;
+
+    private boolean isActive = true;
 
 }
