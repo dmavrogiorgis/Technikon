@@ -67,7 +67,7 @@ private final PropertyRepository propertyRepository;
         propertyOwnerRepository.save(propertyOwner);
 
         Property property = new Property();
-        property.setPropertyIN("123456789");
+        property.setPropertyIN(123456789);
         property.setPropertyOwner(propertyOwner);
         propertyRepository.save(property);
     }
