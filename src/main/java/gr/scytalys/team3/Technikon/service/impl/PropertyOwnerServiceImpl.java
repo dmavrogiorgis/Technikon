@@ -1,4 +1,4 @@
-package gr.scytalys.team3.Technikon.service;
+package gr.scytalys.team3.Technikon.service.impl;
 
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerDTO;
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerSearchDTO;
@@ -7,6 +7,8 @@ import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerUpdateDTO;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerSpecifications;
+import gr.scytalys.team3.Technikon.service.PropertyOwnerService;
+import gr.scytalys.team3.Technikon.service.PropertyOwnerValidator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
@@ -74,6 +76,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                                             .findOne(spec)
                                             .orElseThrow(() -> new EntityNotFoundException("Property owner not found!")));
     }
+
 
     @Override
     @Transactional

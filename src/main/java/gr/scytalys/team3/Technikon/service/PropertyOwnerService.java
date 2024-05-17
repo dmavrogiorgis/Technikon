@@ -10,7 +10,6 @@ public interface PropertyOwnerService {
 
     //SEARCH FOR PROPERTY OWNER
     PropertyOwnerDTO searchPropertyOwner(PropertyOwnerSearchDTO propertyOwnerSearchDTO);
-
     //UPDATE PROPERTY OWNER
     void updatePropertyOwner(String propertyOwnerTIN, PropertyOwnerUpdateDTO propertyOwnerUpdateDTO);
 
