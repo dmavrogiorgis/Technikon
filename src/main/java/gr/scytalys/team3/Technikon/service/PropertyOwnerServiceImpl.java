@@ -1,6 +1,6 @@
 package gr.scytalys.team3.Technikon.service;
 
-import gr.scytalys.team3.Technikon.dto.PropertyOwnerDTO;
+import gr.scytalys.team3.Technikon.dto.PropertyOwnerResponseDTO;
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerSearchDTO;
 import gr.scytalys.team3.Technikon.mapper.PropertyOwnerMapper;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
@@ -13,6 +13,7 @@ import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.security.InvalidParameterException;
@@ -26,25 +27,11 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     private final PropertyOwnerRepository propertyOwnerRepository;
     private final PropertyOwnerValidator propertyOwnerValidator;
     private final PropertyOwnerMapper propertyOwnerMapper;
-
-    @Override
-    @Transactional
-    @CacheEvict(value = "PropertyOwners", allEntries = true)
-    public PropertyOwnerDTO createPropertyOwner(PropertyOwnerDTO propertyOwnerDTO) {
-
-        propertyOwnerValidator.checkForNullCreation(propertyOwnerDTO);
-
-        propertyOwnerValidator.validatePropertyOwnerCreation(propertyOwnerDTO);
-
-        return propertyOwnerMapper
-                    .toPropertyOwnerDto(propertyOwnerRepository
-                                            .save(propertyOwnerMapper
-                                                    .toPropertyOwner(propertyOwnerDTO)));
-    }
+    private final PasswordEncoder encoder;
 
     @Override
     @Cacheable("PropertyOwners")
-    public PropertyOwnerDTO searchPropertyOwner(PropertyOwnerSearchDTO propertyOwnerSearchDTO) {
+    public PropertyOwnerResponseDTO searchPropertyOwner(PropertyOwnerSearchDTO propertyOwnerSearchDTO) {
 
         if (propertyOwnerSearchDTO == null) {
             throw new NullArgumentException("Property Owner to search is null!");
@@ -70,9 +57,10 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         return propertyOwnerMapper
-                    .toPropertyOwnerDto(propertyOwnerRepository
-                                            .findOne(spec)
-                                            .orElseThrow(() -> new EntityNotFoundException("Property owner not found!")));
+                    .toPropertyOwnerResponseDto(
+                            propertyOwnerRepository
+                                    .findOne(spec)
+                                    .orElseThrow(() -> new EntityNotFoundException("Property owner not found!")));
     }
 
     @Override
@@ -97,6 +85,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         propertyOwnerValidator.validatePropertyOwnerUpdate(propertyOwnerUpdateDTO.getEmail());
+        propertyOwnerUpdateDTO.setPassword(encoder.encode(propertyOwnerUpdateDTO.getPassword()));
         propertyOwnerRepository
                 .save(propertyOwnerMapper
                         .updatePropertyOwnerFromDto(propertyOwnerUpdateDTO, propertyOwnerDB));

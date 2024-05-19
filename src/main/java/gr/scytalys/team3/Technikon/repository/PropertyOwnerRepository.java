@@ -8,10 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PropertyOwnerRepository extends JpaRepository<PropertyOwner, Long>, JpaSpecificationExecutor<PropertyOwner> {
 
     @Query("select p.propertyIN from Property p where p.propertyOwner.tin = :tin")
     List<String> findPropertiesByPropertyOwnerTIN(@Param("tin") String tin);
+
+    Optional<PropertyOwner> findByUsername(String username);
 }
