@@ -11,7 +11,7 @@ import gr.scytalys.team3.Technikon.model.Repair;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
-import gr.scytalys.team3.Technikon.repository.RepairSpecifications;
+import gr.scytalys.team3.Technikon.repository.specifications.RepairSpecifications;
 import gr.scytalys.team3.Technikon.service.PropertyService;
 import gr.scytalys.team3.Technikon.service.RepairService;
 import gr.scytalys.team3.Technikon.service.RepairValidator;

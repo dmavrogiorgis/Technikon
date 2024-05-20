@@ -72,7 +72,7 @@ public class PropertyServiceImpl implements PropertyService {
         Property found = propertyRepository.findById(propertyId)
                 .filter(Property::isActive)
                 .orElseThrow();
-        return found.getRepairs()!=null;
+        return found.getRepairTasks()!=null;
     }
 
     @Override

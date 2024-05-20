@@ -36,10 +36,10 @@ public class ImportRepairService {
         Faker faker = new Faker();
 
         Property property = new Property();
-        property.setPropertyIN(Long.getLong(faker.number().digits(9)));
+        property.setPropertyIN(Long.parseLong(faker.number().digits(9)));
 
         Property property1 = new Property();
-        property.setPropertyIN(Long.getLong(faker.number().digits(9)));
+        property.setPropertyIN(Long.parseLong(faker.number().digits(9)));
 
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
@@ -47,7 +47,6 @@ public class ImportRepairService {
         repair.setTypeOfRepair(TypeOfRepair.valueOf("PAINTING"));
         repair.setRepairDate(LocalDate.of(2024, 05, 14));
         repair.setProperty(property);
-        repairRepository.save(repair);
 
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
@@ -55,7 +54,6 @@ public class ImportRepairService {
         repair1.setTypeOfRepair(TypeOfRepair.valueOf("INSULATION"));
         repair1.setRepairDate(LocalDate.of(2024, 05, 15));
         repair1.setProperty(property);
-        repairRepository.save(repair1);
 
         Repair repair2 = new Repair();
         repair2.setCostOfRepair(new BigDecimal(400));
@@ -63,22 +61,18 @@ public class ImportRepairService {
         repair2.setTypeOfRepair(TypeOfRepair.valueOf("FRAMES"));
         repair2.setRepairDate(LocalDate.of(2024, 05, 17));
         repair.setProperty(property1);
-        repairRepository.save(repair2);
 
         Repair repair3 = new Repair();
         repair3.setCostOfRepair(new BigDecimal(150));
         repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
         repair3.setTypeOfRepair(TypeOfRepair.valueOf("PLUMBING"));
         repair3.setRepairDate(LocalDate.of(2024, 05, 19));
-        repairRepository.save(repair3);
 
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
         repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
         repair4.setTypeOfRepair(TypeOfRepair.valueOf("ELECTRICAL_WORK"));
         repair4.setRepairDate(LocalDate.of(2024, 05, 20));
-        repairRepository.save(repair4);
-
 
         for (int i=0; i<numOfIterations; i++){
             PropertyOwner po = createRandomPO();
@@ -94,6 +88,11 @@ public class ImportRepairService {
                 propertyRepository.save(property1);
             }
         }
+        repairRepository.save(repair);
+        repairRepository.save(repair1);
+        repairRepository.save(repair2);
+        repairRepository.save(repair3);
+        repairRepository.save(repair4);
     }
 
     public PropertyOwner createRandomPO(){
