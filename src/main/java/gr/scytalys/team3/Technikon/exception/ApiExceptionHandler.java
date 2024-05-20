@@ -1,6 +1,7 @@
 package gr.scytalys.team3.Technikon.exception;
 
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerResponseDTO;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
@@ -15,7 +16,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.naming.AuthenticationException;
 import java.security.InvalidParameterException;
 
 @ControllerAdvice
@@ -43,7 +43,7 @@ public class ApiExceptionHandler {
         logger.error("Data integrity violation", ex);
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", ex.getMessage());
-        return new ResponseEntity<>(null, headers, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(null, headers, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
@@ -57,7 +57,7 @@ public class ApiExceptionHandler {
     public ResponseEntity<PropertyOwnerResponseDTO> handleAccessDeniedException(AccessDeniedException ex) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", ex.getMessage());
-        return new ResponseEntity<>(null, headers, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(null, headers, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(BadCredentialsException.class)
@@ -66,8 +66,9 @@ public class ApiExceptionHandler {
         headers.add("message", ex.getMessage());
         return new ResponseEntity<>(null, headers, HttpStatus.UNAUTHORIZED);
     }
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<PropertyOwnerResponseDTO> handleExpiredJwtException(RuntimeException ex) {
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<PropertyOwnerResponseDTO> handleExpiredJwtException(ExpiredJwtException ex) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", ex.getMessage());
         return new ResponseEntity<>(null, headers, HttpStatus.UNAUTHORIZED);

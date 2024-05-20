@@ -47,7 +47,7 @@ public class UserAuthController {
                                                     userInfoDetails.getEmail(),
                                                     userInfoDetails.getId());
             HttpHeaders headers = new HttpHeaders();
-            headers.add("message", "Property Owner logged in successfully!");
+            headers.add("message", "User logged in successfully!");
             return new ResponseEntity<>(new LoginResponseDTO(userInfoDetails.getId(),
                                                              userInfoDetails.getUsername(),
                                                              userInfoDetails.getTin(),

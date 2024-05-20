@@ -1,9 +1,11 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
 import com.github.javafaker.Faker;
+import gr.scytalys.team3.Technikon.model.Admin;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.repository.AdminRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 
@@ -20,8 +23,10 @@ import java.math.BigDecimal;
 @Slf4j
 public class ImportRepairService {
 private final RepairRepository repairRepository;
+private final AdminRepository adminRepository;
 private final PropertyOwnerRepository propertyOwnerRepository;
 private final PropertyRepository propertyRepository;
+private final PasswordEncoder encoder;
 
     private final static int numOfIterations = 20;
 
@@ -55,6 +60,19 @@ private final PropertyRepository propertyRepository;
         repair4.setCostOfRepair(new BigDecimal(110));
         repair4.setTypeOfRepair("ELECTRICAL WORK");
         repairRepository.save(repair4);
+
+        Admin admin = new Admin();
+        admin.setTin("123456789");
+        admin.setName("dimitris");
+        admin.setSurname("mav");
+        admin.setAddress("Kati");
+        admin.setPhoneNumber("6976500964");
+        admin.setEmail("dim@gmail.com");
+        admin.setUsername("dimmav");
+        admin.setPassword(encoder.encode("1234"));
+        admin.setActive(true);
+
+        adminRepository.save(admin);
 
         Faker faker = new Faker();
         for (int i=0; i<numOfIterations; i++){

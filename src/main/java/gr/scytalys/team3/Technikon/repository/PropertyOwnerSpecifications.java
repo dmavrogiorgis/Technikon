@@ -15,7 +15,4 @@ public class PropertyOwnerSpecifications {
     public static Specification<PropertyOwner> usernameEquals(String username) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("username"), username);
     }
-    public static Specification<PropertyOwner> isActive() {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(root.get("isActive"));
-    }
 }

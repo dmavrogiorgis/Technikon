@@ -2,8 +2,6 @@ package gr.scytalys.team3.Technikon.security.filter;
 
 import gr.scytalys.team3.Technikon.security.service.JwtServiceImpl;
 import gr.scytalys.team3.Technikon.security.service.UserInfoService;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

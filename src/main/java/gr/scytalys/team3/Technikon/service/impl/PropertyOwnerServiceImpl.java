@@ -113,7 +113,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     }
 
     private PropertyOwner getPropertyOwnerByTINSpec(String propertyOwnerTIN){
-        Specification<PropertyOwner> spec = Specification.where(PropertyOwnerSpecifications.isActive()); //To ensure that inactive users cannot change their data
+        Specification<PropertyOwner> spec = Specification.where(null); //To ensure that inactive users cannot change their data
         spec = spec.and(PropertyOwnerSpecifications.tinEquals(propertyOwnerTIN));
 
         return propertyOwnerRepository
