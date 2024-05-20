@@ -1,6 +1,7 @@
-package gr.scytalys.team3.Technikon.service;
+package gr.scytalys.team3.Technikon.service.impl;
 
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerDTO;
+import gr.scytalys.team3.Technikon.service.PropertyOwnerValidator;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
 import org.springframework.stereotype.Service;
 

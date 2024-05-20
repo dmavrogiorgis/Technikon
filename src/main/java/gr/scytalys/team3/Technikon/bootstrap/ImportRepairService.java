@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -15,27 +16,31 @@ import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @Configuration
 @Slf4j
 public class ImportRepairService {
-private final RepairRepository repairRepository;
-private final PropertyOwnerRepository propertyOwnerRepository;
-private final PropertyRepository propertyRepository;
+    private final RepairRepository repairRepository;
+    private final PropertyOwnerRepository propertyOwnerRepository;
+    private final PropertyRepository propertyRepository;
 
     private final static int numOfIterations = 20;
 
-private RepairRepository repairRepository;
-private PropertyRepository propertyRepository;
-private PropertyOwnerRepository propertyOwnerRepository;
     @Bean
     public CommandLineRunner myCommandLineRunner(){
         return this::run;
     }
 
     private void run(String... args) {
+        Faker faker = new Faker();
+
+        Property property = new Property();
+        property.setPropertyIN(Long.getLong(faker.number().digits(9)));
+
+        Property property1 = new Property();
+        property.setPropertyIN(Long.getLong(faker.number().digits(9)));
+
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
         repair.setTypeOfRepair(TypeOfRepair.valueOf("PAINTING"));
@@ -69,7 +74,7 @@ private PropertyOwnerRepository propertyOwnerRepository;
         repair4.setRepairDate(LocalDate.of(2024, 05, 20));
         repairRepository.save(repair4);
 
-        Faker faker = new Faker();
+
         for (int i=0; i<numOfIterations; i++){
             PropertyOwner po = createRandomPO();
             propertyOwnerRepository.save(po);
@@ -77,10 +82,11 @@ private PropertyOwnerRepository propertyOwnerRepository;
             double randomNum = Math.random();
 
             if (randomNum > 0.5){
-                Property property = new Property();
-                property.setPropertyIN(faker.number().digits(9));
                 property.setPropertyOwner(po);
                 propertyRepository.save(property);
+            }else{
+                property1.setPropertyOwner(po);
+                propertyRepository.save(property1);
             }
         }
     }
@@ -99,13 +105,5 @@ private PropertyOwnerRepository propertyOwnerRepository;
         po.setPassword(faker.internet().password());
         po.setActive(true);
         return po;
-
-        Repair repair5 = new Repair();
-        repair5.setCostOfRepair(new BigDecimal(110));
-        repair5.setTypeOfRepair(TypeOfRepair.valueOf("ELECTRICAL_WORK"));
-        repair5.setRepairDate(LocalDate.of(2024, 05, 16));
-        repairRepository.save(repair5);
-
-
     }
 }
