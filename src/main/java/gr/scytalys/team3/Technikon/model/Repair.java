@@ -6,14 +6,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.mapstruct.EnumMapping;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 @Data
 @Entity
@@ -31,10 +27,11 @@ public class Repair {
     private LocalDate repairDate = LocalDate.now();
     @Enumerated(EnumType.STRING)
     @NotNull
-    private StatusOfRepair statusOfRepair = StatusOfRepair.PENDING;
+    private StatusOfRepair statusOfRepair;
     private boolean active;
     @JsonIgnore
     @ManyToOne
     @NotNull
     private Property property;
+
 }

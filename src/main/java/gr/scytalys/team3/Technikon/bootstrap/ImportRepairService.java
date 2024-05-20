@@ -43,6 +43,7 @@ public class ImportRepairService {
 
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
+        repair.setTypeOfRepair(TypeOfRepair.PAINTING);
         repair.setTypeOfRepair(TypeOfRepair.valueOf("PAINTING"));
         repair.setRepairDate(LocalDate.of(2024, 05, 14));
         repair.setProperty(property);
@@ -50,6 +51,7 @@ public class ImportRepairService {
 
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
+        repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
         repair1.setTypeOfRepair(TypeOfRepair.valueOf("INSULATION"));
         repair1.setRepairDate(LocalDate.of(2024, 05, 15));
         repair1.setProperty(property);
@@ -57,6 +59,7 @@ public class ImportRepairService {
 
         Repair repair2 = new Repair();
         repair2.setCostOfRepair(new BigDecimal(400));
+        repair2.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
         repair2.setTypeOfRepair(TypeOfRepair.valueOf("FRAMES"));
         repair2.setRepairDate(LocalDate.of(2024, 05, 17));
         repair.setProperty(property1);
@@ -64,12 +67,14 @@ public class ImportRepairService {
 
         Repair repair3 = new Repair();
         repair3.setCostOfRepair(new BigDecimal(150));
+        repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
         repair3.setTypeOfRepair(TypeOfRepair.valueOf("PLUMBING"));
         repair3.setRepairDate(LocalDate.of(2024, 05, 19));
         repairRepository.save(repair3);
 
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
+        repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
         repair4.setTypeOfRepair(TypeOfRepair.valueOf("ELECTRICAL_WORK"));
         repair4.setRepairDate(LocalDate.of(2024, 05, 20));
         repairRepository.save(repair4);
