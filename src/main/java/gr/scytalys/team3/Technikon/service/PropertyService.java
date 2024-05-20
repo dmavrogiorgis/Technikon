@@ -1,7 +1,6 @@
 package gr.scytalys.team3.Technikon.service;
 
 import gr.scytalys.team3.Technikon.dto.PropertyDTO;
-import gr.scytalys.team3.Technikon.model.Property;
 
 import java.util.List;
 

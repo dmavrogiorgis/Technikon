@@ -1,4 +1,4 @@
-package gr.scytalys.team3.Technikon.controller;
+package gr.scytalys.team3.Technikon.exception;
 
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import jakarta.persistence.EntityNotFoundException;
