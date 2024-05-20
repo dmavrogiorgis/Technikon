@@ -1,20 +1,23 @@
 package gr.scytalys.team3.Technikon.service;
-import gr.scytalys.team3.Technikon.dto.RepairDTO;
-import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
+import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 
 public interface RepairService {
-    RepairDTO createRepair(RepairDTO repairDTO);
-    RepairDTO getRepairById(long repairId);
-    List<RepairDTO> getRepairsByPropertyId(long propertyId);
-    List<RepairDTO> findRepairsByRepairDate(LocalDate date);
+    RepairResponseDTO createRepair(RepairCreateDTO repairCreateDTO);
+    RepairResponseDTO getRepairById(long repairId);
+    List<RepairResponseDTO> getRepairsByPropertyId(long propertyId);
+    List<RepairResponseDTO> findRepairsByRepairDate(LocalDate date);
 
-    List<RepairDTO> getRepairByRangeOfDates(LocalDate startDate, LocalDate endDate);
-    List<RepairDTO> getRepairsByPropertyOwnerId(long propertyOwnerId);
+    List<RepairResponseDTO> getRepairByRangeOfDates(LocalDate startDate, LocalDate endDate);
+    List<RepairResponseDTO> getRepairsByPropertyOwnerId(long propertyOwnerId);
     BigDecimal getTotalCost(long propertyId);
     boolean deleteRepair(long repairId);
-    RepairDTO updateRepair(long repairId, RepairDTO repairDTO);
+    RepairResponseDTO updateRepair(long repairId, RepairResponseDTO repairResponseDTO);
+
+//    RepairResponseDTO setCostOfRepair(RepairCreateDTO repairCreateDTO);
 }

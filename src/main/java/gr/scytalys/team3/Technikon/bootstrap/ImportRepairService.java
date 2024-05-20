@@ -3,6 +3,7 @@ package gr.scytalys.team3.Technikon.bootstrap;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -30,27 +31,27 @@ private final PropertyRepository propertyRepository;
     private void run(String... args) {
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
-        repair.setTypeOfRepair("PAINTING");
+        repair.setTypeOfRepair(TypeOfRepair.PAINTING);
         repairRepository.save(repair);
 
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
-        repair1.setTypeOfRepair("INSULATION");
+        repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
         repairRepository.save(repair1);
 
         Repair repair2 = new Repair();
         repair2.setCostOfRepair(new BigDecimal(400));
-        repair2.setTypeOfRepair("FRAMES");
+        repair2.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
         repairRepository.save(repair2);
 
         Repair repair3 = new Repair();
         repair3.setCostOfRepair(new BigDecimal(150));
-        repair3.setTypeOfRepair("PLUMBING");
+        repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
         repairRepository.save(repair3);
 
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
-        repair4.setTypeOfRepair("ELECTRICAL WORK");
+        repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
         repairRepository.save(repair4);
 
         PropertyOwner propertyOwner = new PropertyOwner();

@@ -2,7 +2,7 @@ package gr.scytalys.team3.Technikon.dto;
 
 import gr.scytalys.team3.Technikon.model.PropertyCoordinates;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
-import gr.scytalys.team3.Technikon.model.RepairTask;
+import gr.scytalys.team3.Technikon.model.Repair;
 import gr.scytalys.team3.Technikon.model.TypeOfProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
