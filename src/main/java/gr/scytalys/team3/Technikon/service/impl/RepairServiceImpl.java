@@ -1,4 +1,4 @@
-package gr.scytalys.team3.Technikon.service;
+package gr.scytalys.team3.Technikon.service.impl;
 
 import gr.scytalys.team3.Technikon.dto.RepairDTO;
 import gr.scytalys.team3.Technikon.mapper.RepairMapper;
@@ -8,11 +8,11 @@ import gr.scytalys.team3.Technikon.model.Repair;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
-import gr.scytalys.team3.Technikon.repository.RepairSpecifications;
+import gr.scytalys.team3.Technikon.repository.specifications.RepairSpecifications;
+import gr.scytalys.team3.Technikon.service.RepairService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class RepairServiceImpl implements RepairService{
+public class RepairServiceImpl implements RepairService {
     private RepairRepository repairRepository;
     private PropertyRepository propertyRepository;
     private PropertyOwnerRepository propertyOwnerRepository;

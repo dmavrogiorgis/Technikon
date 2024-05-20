@@ -6,7 +6,7 @@ import gr.scytalys.team3.Technikon.mapper.PropertyOwnerMapper;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.dto.PropertyOwnerUpdateDTO;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
-import gr.scytalys.team3.Technikon.repository.PropertyOwnerSpecifications;
+import gr.scytalys.team3.Technikon.repository.specifications.PropertyOwnerSpecifications;
 import gr.scytalys.team3.Technikon.service.PropertyOwnerService;
 import gr.scytalys.team3.Technikon.service.PropertyOwnerValidator;
 import jakarta.persistence.EntityNotFoundException;

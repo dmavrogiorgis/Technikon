@@ -1,4 +1,4 @@
-package gr.scytalys.team3.Technikon.repository;
+package gr.scytalys.team3.Technikon.repository.specifications;
 
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import org.springframework.data.jpa.domain.Specification;
