@@ -1,5 +1,6 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
+import com.github.javafaker.Faker;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
@@ -64,7 +65,7 @@ private final PropertyRepository propertyRepository;
 
             if (randomNum > 0.5){
                 Property property = new Property();
-                property.setPropertyIN(faker.number().digits(9));
+                property.setPropertyIN(Long.parseLong(faker.number().digits(9)));
                 property.setPropertyOwner(po);
                 propertyRepository.save(property);
             }
