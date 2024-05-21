@@ -28,10 +28,10 @@ public class RepairController {
     }
 
     @GetMapping
-    ResponseEntity<RepairResponseDTO> getRepairById(@RequestParam long repaidId){
+    ResponseEntity<RepairResponseDTO> getRepairById(@RequestParam long repairId){
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "Repair Retrieved");
-        RepairResponseDTO repair = repairService.getRepairById(repaidId);
+        RepairResponseDTO repair = repairService.getRepairById(repairId);
         return new ResponseEntity<>(repair, headers, HttpStatus.OK);
     }
 
@@ -44,7 +44,7 @@ public class RepairController {
     }
 
     @GetMapping("/repairsDateRange")
-    ResponseEntity<List<RepairResponseDTO>> getRepairsByRangeOfDates(@DateTimeFormat(pattern="dd/MM/yyyy") LocalDate startDate, @RequestParam @DateTimeFormat(pattern="dd/MM/yyyy") LocalDate endDate){
+    ResponseEntity<List<RepairResponseDTO>> getRepairsByRangeOfDates(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "Retrieving a List of repairs made between a certain date.");
         List<RepairResponseDTO> repairs = repairService.getRepairByRangeOfDates(startDate, endDate);
@@ -52,9 +52,9 @@ public class RepairController {
     }
 
     @GetMapping("/repairsDate")
-    ResponseEntity<List<RepairResponseDTO>> getRepairsByRangeOfDates(@DateTimeFormat(pattern="dd/MM/yyyy") LocalDate date){
+    ResponseEntity<List<RepairResponseDTO>> getRepairsByDate(LocalDate date){
         HttpHeaders headers = new HttpHeaders();
-        headers.add("message", "Retrieving a List of repairs made between a certain date.");
+        headers.add("message", "Retrieving a List of repairs made on a certain date.");
         List<RepairResponseDTO> repairs = repairService.findRepairsByRepairDate(date);
         return new ResponseEntity<>(repairs, headers, HttpStatus.OK);
     }

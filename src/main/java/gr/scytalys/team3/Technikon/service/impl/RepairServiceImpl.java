@@ -3,29 +3,24 @@ package gr.scytalys.team3.Technikon.service.impl;
 import gr.scytalys.team3.Technikon.dto.PropertyDTO;
 import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
 import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
-import gr.scytalys.team3.Technikon.mapper.PropertyMapper;
 import gr.scytalys.team3.Technikon.mapper.RepairMapper;
-import gr.scytalys.team3.Technikon.model.Property;
-import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
-import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
-import gr.scytalys.team3.Technikon.repository.PropertyRepository;
+import gr.scytalys.team3.Technikon.model.StatusOfRepair;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
 import gr.scytalys.team3.Technikon.repository.RepairSpecifications;
+import gr.scytalys.team3.Technikon.service.EnumValidator;
 import gr.scytalys.team3.Technikon.service.PropertyService;
 import gr.scytalys.team3.Technikon.service.RepairService;
-import gr.scytalys.team3.Technikon.service.RepairValidator;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -35,9 +30,7 @@ public class RepairServiceImpl implements RepairService {
     private RepairRepository repairRepository;
     private RepairMapper repairMapper;
     private PropertyService propertyService;
-    private PropertyMapper propertyMapper;
-    private RepairValidator repairValidator;
-
+    private EnumValidator<String> enumValidator;
 
     @Override
     @Transactional
@@ -45,6 +38,7 @@ public class RepairServiceImpl implements RepairService {
          propertyService.getPropertyById(repairCreateDTO.getPropertyId());
 
         Repair repair =  repairMapper.toRepair(repairCreateDTO);
+        repair.setStatusOfRepair(StatusOfRepair.PENDING);
         switch(repair.getTypeOfRepair()){
             case FRAMES -> repair.setCostOfRepair(BigDecimal.valueOf(110));
             case PAINTING -> repair.setCostOfRepair(BigDecimal.valueOf(100));
@@ -60,9 +54,9 @@ public class RepairServiceImpl implements RepairService {
 
     @Override
     public RepairResponseDTO getRepairById(long repairId) {
-       Repair repair =  repairRepository.findById(repairId)
-               .filter(Repair::isActive)
-               .orElseThrow();
+        Repair repair = repairRepository.findById(repairId)
+                .filter(Repair::isActive)
+                .orElseThrow();
         log.info("Retrieved Repair with id: " + repairId);
         return repairMapper.toRepairResponseDTO(repair);
     }
@@ -77,7 +71,7 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public List<RepairResponseDTO> findRepairsByRepairDate(LocalDate dateTime) {
+    public List<RepairResponseDTO> findRepairsByRepairDate(@DateTimeFormat(pattern = "dd/MM/yyyy")LocalDate dateTime) {
         List<Repair> repairs = repairRepository.findRepairsByRepairDate(dateTime);
         return repairs.stream()
                 .map(repairMapper::toRepairResponseDTO)
@@ -85,7 +79,7 @@ public class RepairServiceImpl implements RepairService {
     }
 
     @Override
-    public List<RepairResponseDTO> getRepairByRangeOfDates(LocalDate startDate, LocalDate endDate) {
+    public List<RepairResponseDTO> getRepairByRangeOfDates(LocalDate startDate,LocalDate endDate) {
         //validation
         if(startDate.isAfter(endDate)) {
             log.debug("StartDate cant be later than endDate");
@@ -164,10 +158,6 @@ public class RepairServiceImpl implements RepairService {
         }
         if(repairResponseDTO.getDescription() != null){
             repairDB.setDescription(repairResponseDTO.getDescription());
-        }
-        if(Long.valueOf(repairId) != null){
-            Property property = propertyMapper.toProperty(propertyService.getPropertyById(repairResponseDTO.getPropertyId()));
-            repairDB.setProperty(property);
         }
         repairRepository.save(repairDB);
         return repairMapper.toRepairResponseDTO(repairDB);

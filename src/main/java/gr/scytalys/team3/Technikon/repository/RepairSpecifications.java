@@ -10,4 +10,7 @@ public class RepairSpecifications {
     public static Specification<Repair> repairDateBetween(LocalDate startDate, LocalDate endDate){
         return ((root, query, criteriaBuilder) -> criteriaBuilder.between(root.get("repairDate"), startDate , endDate));
     }
+    public static Specification<Repair> repairIsActive(){
+        return (root, query, criteriaBuilder) -> criteriaBuilder.isTrue(root.get("isActive"));
+    }
 }

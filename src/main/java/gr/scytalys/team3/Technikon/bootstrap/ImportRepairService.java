@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Configuration
@@ -29,30 +30,6 @@ private final PropertyRepository propertyRepository;
     }
 
     private void run(String... args) {
-        Repair repair = new Repair();
-        repair.setCostOfRepair(new BigDecimal(100));
-        repair.setTypeOfRepair(TypeOfRepair.PAINTING);
-        repairRepository.save(repair);
-
-        Repair repair1 = new Repair();
-        repair1.setCostOfRepair(new BigDecimal(300));
-        repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
-        repairRepository.save(repair1);
-
-        Repair repair2 = new Repair();
-        repair2.setCostOfRepair(new BigDecimal(400));
-        repair2.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
-        repairRepository.save(repair2);
-
-        Repair repair3 = new Repair();
-        repair3.setCostOfRepair(new BigDecimal(150));
-        repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
-        repairRepository.save(repair3);
-
-        Repair repair4 = new Repair();
-        repair4.setCostOfRepair(new BigDecimal(110));
-        repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
-        repairRepository.save(repair4);
 
         PropertyOwner propertyOwner = new PropertyOwner();
         propertyOwner.setTin("123456789");
@@ -70,6 +47,39 @@ private final PropertyRepository propertyRepository;
         Property property = new Property();
         property.setPropertyIN(123456789);
         property.setPropertyOwner(propertyOwner);
+        property.setPropertyOwner(propertyOwner);
+        property.setAddress("assdfads");
         propertyRepository.save(property);
+
+
+        Repair repair = new Repair();
+        repair.setCostOfRepair(new BigDecimal(100));
+        repair.setTypeOfRepair(TypeOfRepair.PAINTING);
+        repair.setProperty(property);
+        repair.setRepairDate(LocalDate.ofEpochDay(21/5/2024));
+        repairRepository.save(repair);
+
+        Repair repair1 = new Repair();
+        repair1.setCostOfRepair(new BigDecimal(300));
+        repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
+        repair1.setProperty(property);
+        repairRepository.save(repair1);
+
+        Repair repair2 = new Repair();
+        repair2.setCostOfRepair(new BigDecimal(400));
+        repair2.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
+        repair2.setProperty(property);
+        repairRepository.save(repair2);
+
+        Repair repair3 = new Repair();
+        repair3.setCostOfRepair(new BigDecimal(150));
+        repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
+        repair3.setProperty(property);
+        repairRepository.save(repair3);
+
+        Repair repair4 = new Repair();
+        repair4.setCostOfRepair(new BigDecimal(110));
+        repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
+        repairRepository.save(repair4);
     }
 }

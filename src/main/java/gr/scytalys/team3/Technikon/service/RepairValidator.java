@@ -3,6 +3,7 @@ package gr.scytalys.team3.Technikon.service;
 import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
 import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
 import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 
 public interface RepairValidator {
 
@@ -10,4 +11,6 @@ public interface RepairValidator {
     void checkForNull(RepairCreateDTO repairCreateDTO);
     void validateRepairCreation(RepairCreateDTO repairCreateDTO);
     void validateRepairUpdate(RepairCreateDTO repairCreateDTO);
+
+    public boolean validateTypeOfRepair(TypeOfRepair typeOfRepair);
 }
