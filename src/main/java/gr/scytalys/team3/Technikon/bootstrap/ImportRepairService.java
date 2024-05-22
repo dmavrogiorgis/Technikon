@@ -1,9 +1,6 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
-import gr.scytalys.team3.Technikon.model.Property;
-import gr.scytalys.team3.Technikon.model.PropertyOwner;
-import gr.scytalys.team3.Technikon.model.Repair;
-import gr.scytalys.team3.Technikon.model.TypeOfRepair;
+import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -49,6 +46,7 @@ private final PropertyRepository propertyRepository;
         property.setPropertyOwner(propertyOwner);
         property.setPropertyOwner(propertyOwner);
         property.setAddress("assdfads");
+        property.setTypeOfProperty(TypeOfProperty.APARTMENT);
         propertyRepository.save(property);
 
 
