@@ -1,6 +1,5 @@
 ## Technikon - The Technicians on the Web
 
----
 
 #### Docker
 
