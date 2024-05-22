@@ -1,10 +1,9 @@
-package stepdefinitions;
+package stepDefinitions;
 
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 
 public class TestSetup {
 
