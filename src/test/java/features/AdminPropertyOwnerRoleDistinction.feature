@@ -1,16 +1,16 @@
 Feature: Administrator And Property Owner Role Distinction
 
   Scenario: Administrator Log-In
-    Given The Log-In Button is displayed
-    When I enter the Administrator Credentials
+    Given The Log-In Page is displayed
+    When I enter the Credentials "adminos" "Admin_p@ss"
     And I click the Log-In Button
     Then I am Logged-In as an Administrator
 
   Scenario: Property Owner Log-In
-    Given The Log-In Button is displayed
-    When I enter the Property Owner Credentials
+    Given The Log-In Page is displayed
+    When I enter the Credentials "userPleb" "Us3rpleb"
     And I click the Log-In Button
-    Then I am Logged-In as Property Owner
+    Then I am Logged-In as a Property Owner
 
   Scenario: Administrator Access Level
     Given I am Logged-In as an Administrator and I want to explore all Property Owners' Properties
