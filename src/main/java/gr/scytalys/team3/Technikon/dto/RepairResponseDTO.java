@@ -1,6 +1,7 @@
 package gr.scytalys.team3.Technikon.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import gr.scytalys.team3.Technikon.model.StatusOfRepair;
 import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,5 @@ public class RepairResponseDTO {
     private StatusOfRepair statusOfRepair;
     private TypeOfRepair typeOfRepair;
     private long propertyId;
-    private boolean active;
+    private boolean isActive;
 }
