@@ -1,5 +1,6 @@
 package gr.scytalys.team3.Technikon.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import gr.scytalys.team3.Technikon.model.StatusOfRepair;
 import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 import jakarta.validation.constraints.NotNull;

@@ -2,6 +2,7 @@ package gr.scytalys.team3.Technikon.service.impl;
 
 import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
 import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
+import gr.scytalys.team3.Technikon.dto.RepairUpdateDTO;
 import gr.scytalys.team3.Technikon.model.Repair;
 import gr.scytalys.team3.Technikon.model.StatusOfRepair;
 import gr.scytalys.team3.Technikon.model.TypeOfRepair;
@@ -23,13 +24,14 @@ import java.util.regex.Pattern;
 @Service
 @AllArgsConstructor
 public class RepairValidatorImpl implements RepairValidator {
-    private final String costRegexPattern ="^\\d+$\n";
-    private final String dateformat = "^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[012])\\/(19|20)\\d\\d$";
+    private final String costRegexPattern = "^\\d+$\n";
+    //    private final String dateformat = "^(?<day>[0-3]?[0-9])/(?<month>[0-3]?[0-9])/(?<year>(?:[0-9]{2})?[0-9]{2})$\n";
     private final EnumValidator<String> enumValidator;
     private final PropertyService propertyService;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private final LocalDate dateNow = LocalDate.now();
+
     @Override
     public void checkForNull(RepairResponseDTO repairResponseDTO) {
         Optional.ofNullable(repairResponseDTO).orElseThrow(() -> new NullArgumentException("The creation of the repair returned null"));
@@ -49,42 +51,66 @@ public class RepairValidatorImpl implements RepairValidator {
 
     @Override
     public void validateRepairCreation(RepairCreateDTO repairCreateDTO) {
-        if(repairCreateDTO.getPropertyId() == 0 || propertyService.getPropertyById(repairCreateDTO.getPropertyId()) == null){
+        if (repairCreateDTO.getPropertyId() == 0 || propertyService.getPropertyById(repairCreateDTO.getPropertyId()) == null) {
             throw new InvalidParameterException("Property must exist to create a repair.");
         }
-        if(!validateTypeOfRepair(repairCreateDTO.getTypeOfRepair())){
+        if (!validateTypeOfRepair(repairCreateDTO.getTypeOfRepair())) {
             throw new InvalidParameterException("Type of repair is invalid");
         }
-        if(!validateDateCreation(repairCreateDTO.getRepairDate())){
+        if (!validateDateCreation(repairCreateDTO.getRepairDate())) {
             throw new InvalidParameterException("Date of repair cannot be before today");
         }
-        if(!validateDateFormat(repairCreateDTO.getRepairDate())){
-            throw new InvalidParameterException("Format of date is wrong");
-        }
-        
-
     }
 
     @Override
-    public void validateRepairUpdate(RepairCreateDTO repairCreateDTO) {
-
+    public void validateRepairUpdate(RepairUpdateDTO repairUpdateDTO) {
+        if (repairUpdateDTO.getPropertyId() == 0 || propertyService.getPropertyById(repairUpdateDTO.getPropertyId()) == null) {
+            throw new InvalidParameterException("Property must exist to create a repair.");
+        }
+        if (!validateTypeOfRepair(repairUpdateDTO.getTypeOfRepair())) {
+            throw new InvalidParameterException("Type of repair is invalid");
+        }
+        if (!validateDateCreation(repairUpdateDTO.getRepairDate())) {
+            throw new InvalidParameterException("Date of repair cannot be before today");
+        }
+        if (!validateStatusOfRepair(repairUpdateDTO.getStatusOfRepair())) {
+            throw new InvalidParameterException("Status of repair is wrong.");
+        }
     }
 
+    @Override
+    public void validateRepairResponse(RepairResponseDTO repairResponseDTO) {
+        if (repairResponseDTO.getPropertyId() == 0 || propertyService.getPropertyById(repairResponseDTO.getPropertyId()) == null) {
+            throw new InvalidParameterException("Property must exist to create a repair.");
+        }
+        if (!validateTypeOfRepair(repairResponseDTO.getTypeOfRepair())) {
+            throw new InvalidParameterException("Type of repair is invalid");
+        }
+        if (!validateDateCreation(repairResponseDTO.getRepairDate())) {
+            throw new InvalidParameterException("Date of repair cannot be before today");
+        }
 
-    public boolean validateTypeOfRepair(TypeOfRepair typeOfRepair){
+        if (!validateStatusOfRepair(repairResponseDTO.getStatusOfRepair())) {
+            throw new InvalidParameterException("Status of repair is wrong.");
+        }
+    }
+
+    public boolean validateTypeOfRepair(TypeOfRepair typeOfRepair) {
         return enumValidator.typeOfRepairValidate(typeOfRepair.toString());
     }
-    public boolean validateStatusOfRepair(StatusOfRepair statusOfRepair){
+
+    public boolean validateStatusOfRepair(StatusOfRepair statusOfRepair) {
         return enumValidator.statusOfRepairValidate(statusOfRepair.toString());
     }
 
-    public boolean validateDateFormat(LocalDate date){
-        return Pattern.matches(dateformat, date.toString());
-    }
-    public boolean validateDateCreation(LocalDate date){
+    //    public boolean validateDateFormat(LocalDate date){
+//        return Pattern.matches(dateformat, date.toString());
+//    }
+    public boolean validateDateCreation(@DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate date) {
         return !date.isBefore(LocalDate.now());
     }
-    public boolean validateDateBetween(LocalDate startDate, LocalDate endDate) {
+
+    public boolean validateDateBetween(@DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate startDate, @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate endDate) {
         return !startDate.isAfter(endDate);
     }
 }

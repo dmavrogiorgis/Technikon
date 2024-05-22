@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:5174", allowCredentials = "true")
 @RequestMapping("api/owner")
 public class PropertyOwnerController {
 

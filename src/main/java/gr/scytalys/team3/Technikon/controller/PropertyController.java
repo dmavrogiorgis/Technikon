@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/owner/")
+@CrossOrigin(origins = "http://localhost:5174", allowCredentials = "true")
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class PropertyController {
     private final PropertyService propertyService;
@@ -30,14 +31,14 @@ public class PropertyController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "Property found!");
         return new ResponseEntity<>(propertyService
-                .getPropertyById(propertyId), headers, HttpStatus.FOUND);
+                .getPropertyById(propertyId), headers, HttpStatus.OK);
     }
 
     @GetMapping("{ownerId}/property")
     public ResponseEntity <List<PropertyDTO>> getPropertyByOwnerId(@PathVariable long ownerId) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "Property found!");
-        return new ResponseEntity<>(propertyService.findAllPropertiesByOwnerId(ownerId), headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(propertyService.findAllPropertiesByOwnerId(ownerId), headers, HttpStatus.OK);
     }
 
     @PutMapping("{ownerId}/property/{propertyId}")

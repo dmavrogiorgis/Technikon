@@ -17,14 +17,16 @@ public class Property {
     private long propertyId;
     @Column(unique = true)
     private long propertyIN;
+    @NotNull
     private String address;
     private long yearOfConstruct;
     @ManyToOne
     @NotNull
     private PropertyOwner propertyOwner;
-    private String picturePath;
+    private String picturePath ;
 //    @Embedded
 //    private PropertyCoordinates propertyCoordinates;
+    @NotNull
     private TypeOfProperty typeOfProperty;
     @OneToMany(mappedBy = "property")
     private List<Repair> repairs;

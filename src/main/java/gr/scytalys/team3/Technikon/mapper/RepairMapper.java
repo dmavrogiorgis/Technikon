@@ -2,6 +2,7 @@ package gr.scytalys.team3.Technikon.mapper;
 
 import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
 import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
+import gr.scytalys.team3.Technikon.dto.RepairUpdateDTO;
 import gr.scytalys.team3.Technikon.model.Repair;
 import org.mapstruct.Mapper;
 import org.mapstruct.MapperConfig;
@@ -24,4 +25,11 @@ public interface RepairMapper {
 
     @Mapping(source = "propertyId", target = "property.propertyId")
     Repair toRepair(RepairCreateDTO repairCreateDTO);
+
+    @Mapping(source = "property.propertyId", target = "propertyId")
+    RepairUpdateDTO repairUpdateDTO(Repair repair);
+
+
+    @Mapping(source = "propertyId", target = "property.propertyId")
+    Repair toRepair(RepairUpdateDTO repairUpdateDTO);
 }

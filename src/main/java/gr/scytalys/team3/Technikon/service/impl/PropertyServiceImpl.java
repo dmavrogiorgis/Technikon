@@ -8,6 +8,7 @@ import gr.scytalys.team3.Technikon.service.PropertyService;
 import gr.scytalys.team3.Technikon.service.PropertyValidator;
 import jakarta.el.PropertyNotFoundException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,11 +30,18 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public PropertyDTO createProperty(long ownerId, PropertyDTO propertyDTO) {
+
         if(propertyDTO == null){
+            throw new NullArgumentException("Property is null!");
+        }
+        if(propertyDTO.getPropertyOwnerId() == 0){
             throw new NullArgumentException("Property Owner is null!");
         }
         if(ownerId!=propertyDTO.getPropertyOwnerId()){
             throw new InvalidParameterException("Cannot create property");
+        }
+        if(propertyDTO.getAddress().matches("")){
+            throw new InvalidParameterException("Cannot create property without address");
         }
         Property savedProperty = propertyMapper.toProperty(propertyDTO);
         propertyValidator.validate(savedProperty);
@@ -44,7 +54,7 @@ public class PropertyServiceImpl implements PropertyService {
     public PropertyDTO getPropertyById(long propertyId) {
         Property found = propertyRepository.findById(propertyId)
                 .filter(Property::isActive)
-                .orElseThrow();
+                .orElse(null);
         return propertyMapper.toPropertyDto(found);
     }
 
@@ -55,7 +65,16 @@ public class PropertyServiceImpl implements PropertyService {
                 .filter(Property::isActive)
                 .orElseThrow();
 
-        propertyRepository.save(found);
+            if (propertyDTO.getPropertyIN() != 0) {
+                found.setPropertyIN(propertyDTO.getPropertyIN());
+            }
+           if (propertyDTO.getYearOfConstruct() != 0) {
+                found.setYearOfConstruct(propertyDTO.getYearOfConstruct());
+           }
+           if(propertyDTO.getAddress()!= "") {
+                found.setAddress(propertyDTO.getAddress());
+           }
+           propertyRepository.save(found);
         return propertyMapper.toPropertyDto(found);
 
     }
@@ -121,6 +140,9 @@ public class PropertyServiceImpl implements PropertyService {
     @Override
     public List<PropertyDTO> findAllPropertiesByOwnerId(long id) {
         List<Property> properties = propertyRepository.findAllPropertiesByOwnerId(id);
+        if (properties.isEmpty()){
+            return null;
+        }
         return properties.stream().filter(Property::isActive)
                 .map(propertyMapper::toPropertyDto)
                 .collect(Collectors.toList());
