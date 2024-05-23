@@ -10,7 +10,7 @@ public class GetPropertiesByOwnerId {
 
     public static void main(String[] args) {
 
-        String propertyOwnerId = "22";
+        String propertyOwnerId = "21";
 
         try {
             String uri = "http://localhost:8080/api/owner/" + propertyOwnerId + "/property";

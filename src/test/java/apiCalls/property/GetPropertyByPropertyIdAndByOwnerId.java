@@ -10,7 +10,7 @@ public class GetPropertyByPropertyIdAndByOwnerId {
 
     public static void main(String[] args) {
 
-        String ownerId = "22";
+        String ownerId = "21";
         String propertyId = "3";
 
         try {
