@@ -21,9 +21,9 @@ Run the ```TechnikonApplication``` Java class to initialize the Application.
 
 ---
 
-#### API Endpoints List
+#### API Endpoints
 
-Swagger URL:
+View the list of available endpoint from this Swagger URL:
 
     http://localhost:8080/swagger-ui/index.html
 
