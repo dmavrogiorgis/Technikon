@@ -10,36 +10,26 @@ import java.net.http.HttpRequest.BodyPublishers;
 public class PutPropertyByPropertyIdAndByOwnerId {
 
     public static void main(String[] args) {
-
-        String ownerId = "22";
-        String propertyId = "3";
-
-        String requestBody = """
-                {
-                   "id": 0,
-                   "propertyIN": 123456789,
-                   "address": "New Random Address 66",
-                   "yearOfConstruct": 2009,
-                   "propertyOwnerId": 22,
-                   "picturePath": "mew two jpeg",
-                   "typeOfProperty": "MAISONETTE"
-                }
-                """;
-
-        // Construct the URL
-        String url = "http://localhost:8080/api/owner/" + ownerId + "/property/" + propertyId;
-
-        // Create HttpClient
-        HttpClient client = HttpClient.newHttpClient();
-
-        // Build the request
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).header("Content-Type", "application/json").PUT(BodyPublishers.ofString(requestBody)).build();
-
         try {
-            // Send the request and capture the response
+            String ownerId = "22";
+            String propertyId = "3";
+            String requestBody = """
+                    {
+                       "id": 0,
+                       "propertyIN": 123456789,
+                       "address": "New Random Address 66",
+                       "yearOfConstruct": 2009,
+                       "propertyOwnerId": 22,
+                       "picturePath": "mew two jpeg",
+                       "typeOfProperty": "MAISONETTE"
+                    }
+                    """;
+
+            String url = "http://localhost:8080/api/owner/" + ownerId + "/property/" + propertyId;
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).header("Content-Type", "application/json").PUT(BodyPublishers.ofString(requestBody)).build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // Assert the response code
             if (response.statusCode() == 200) {
                 System.out.println("\\u001B[1m\\u001B[32mTest Passed\\u001B[0m - Property Owner Successfully Updated (Status code: Expected: 200 - Actual: \" + response.statusCode() + \")");
             } else if (response.statusCode() == 404) {
