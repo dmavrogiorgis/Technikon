@@ -12,7 +12,7 @@ public class PostRepairForPropertyByPropertyId {
     public static void main(String[] args) {
 
         try {
-            String propertyId = "2";
+            String propertyId = "3";
             String url = "http://localhost:8080/api/owner/property/" + propertyId + "/repair";
 
             String requestBody = """
@@ -20,7 +20,7 @@ public class PostRepairForPropertyByPropertyId {
                       "typeOfRepair": "PAINTING",
                       "description": "Paint the living room and bathroom.",
                       "repairDate": "2024-05-24",
-                      "propertyId": 2
+                      "propertyId": 3
                     }
                     """;
 

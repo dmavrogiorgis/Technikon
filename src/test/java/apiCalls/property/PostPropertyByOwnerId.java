@@ -12,7 +12,7 @@ public class PostPropertyByOwnerId {
     public static void main(String[] args) {
 
         try {
-            int ownerId = 22;
+            int ownerId = 21;
             String url = "http://localhost:8080/api/owner/" + ownerId + "/property";
             String json = """
                     {
@@ -20,7 +20,7 @@ public class PostPropertyByOwnerId {
                       "propertyIN": 223456789,
                       "address": "Example Address 223",
                       "yearOfConstruct": 2005,
-                      "propertyOwnerId": ownerId,
+                      "propertyOwnerId": 21,
                       "picturePath": "images property jpg",
                       "typeOfProperty": "APARTMENT"
                     }
