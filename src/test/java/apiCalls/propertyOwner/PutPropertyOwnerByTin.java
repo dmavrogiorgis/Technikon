@@ -32,11 +32,11 @@ public class PutPropertyOwnerByTin {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
-                System.out.println("Test Passed - Property Owner Successfully Updated (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property Owner Successfully Updated (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
             } else if (response.statusCode() == 404) {
-                System.out.println("Test failed - Property Owner not found (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - \u001B[33mProperty Owner not found\u001B[0m (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
             } else {
-                System.out.println("Test Failed (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
             }
 
         } catch (IOException | InterruptedException e) {

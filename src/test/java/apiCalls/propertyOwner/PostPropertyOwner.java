@@ -37,19 +37,19 @@ public class PostPropertyOwner {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 201) {
-                System.out.println("Test Passed - Property Owner successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property Owner successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else if (response.statusCode() == 409) {
-                System.out.println("Test Failed - Property Owner already exists in the database (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - \u001B[33mProperty Owner already exists in the database\u001B[0m (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else {
-                System.out.println("Test Failed - Property Owner creation failed (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - Property Owner creation failed (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             }
 
             if (!response.body().isEmpty()) {
-                System.out.println("Test Passed (Response body: not empty)");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m (Response body: not empty)");
                 System.out.println("Response body:");
                 printJson(response.body());
             } else {
-                System.out.println("Test Failed (Response body: empty)");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Response body: empty)");
             }
 
         } catch (IOException | InterruptedException e) {

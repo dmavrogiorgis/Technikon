@@ -22,17 +22,17 @@ public class GetPropertyOwnerById {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
-                System.out.println("Test Passed (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
                 System.out.println("Response body:");
                 printJson(response.body());
             } else {
-                System.out.println("Test Failed (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
             }
 
             if (response.body().contains(tinNumber)) {
-                System.out.println("Test Passed (Response body contains TIN number)");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m (Response body contains TIN number)");
             } else {
-                System.out.println("Test Failed (Response body does not contain TIN number)");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Response body does not contain TIN number)");
             }
 
         } catch (IOException | InterruptedException e) {

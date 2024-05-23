@@ -23,9 +23,9 @@ public class DeletePropertyOwnerByTin {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("Response code: " + response.statusCode());
             if (response.statusCode() == 200) {
-                System.out.println("Test Passed - Property Owner successfully deleted");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property Owner successfully deleted");
             } else {
-                System.out.println("Test Failed - Property Owner deletion failed");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - Property Owner deletion failed");
             }
 
         } catch (IOException | InterruptedException e) {
