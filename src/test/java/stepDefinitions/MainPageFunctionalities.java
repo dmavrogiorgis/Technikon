@@ -33,7 +33,7 @@ public class MainPageFunctionalities {
         clickLogInFromMainToLogIn.click();
     }
 
-    @Then("I am Redirected to the Log In Page/the Log In Window Pops Up")
+    @Then("I am Redirected to the Log In Page or the Log In Window Pops Up")
     public void mainToLogInPageSuccessfulTransition() {
         WebElement fromMainToLogInSuccessTrans = driver.findElement(By.id("logInPageLogInTitle"));
         String logInPageTitle = fromMainToLogInSuccessTrans.getText();
@@ -49,7 +49,7 @@ public class MainPageFunctionalities {
         clickSignUpFromMainToLogIn.click();
     }
 
-    @Then("I am Redirected to the Sign Up Page/the Sign Up Window Pops Up")
+    @Then("I am Redirected to the Sign Up Page or the Sign Up Window Pops Up")
     public void mainToSignUpPageSuccessfulTransition() {
         WebElement fromMainToSignUpSuccessTrans = driver.findElement(By.id("logInPageSignUpTitle"));
         String signUpPageTitle = fromMainToSignUpSuccessTrans.getText();
@@ -69,7 +69,7 @@ public class MainPageFunctionalities {
 
     }
 
-    @Then("I am Redirected to the Sign Up Page/the Sign Up Window Pops Up")
+    @Then("I am Redirected to the Sign Up Page or the Sign Up Window Pops Up")
     public void fromLogInToSignUpRedirect() {
 
     }
@@ -86,7 +86,7 @@ public class MainPageFunctionalities {
 
     }
 
-    @Then("I am Redirected to the Log In Page/the Log In Window Pops Up")
+    @Then("I am Redirected to the Log In Page or the Log In Window Pops Up")
     public void fromSignUpToLogInRedirect() {
 
     }
