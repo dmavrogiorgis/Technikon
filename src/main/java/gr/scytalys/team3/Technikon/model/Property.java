@@ -27,7 +27,7 @@ public class Property {
 //    private PropertyCoordinates propertyCoordinates;
     private TypeOfProperty typeOfProperty;
     @OneToMany(mappedBy = "property")
-    private List<RepairTask> repairTasks;
+    private List<Repair> repairTasks;
 
     private boolean isActive = true;
 
