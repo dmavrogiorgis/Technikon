@@ -29,7 +29,7 @@ View the list of available endpoint from this Swagger URL:
 
 ---
 
-#### Postman Testing
+#### API Endpoint Testing
 
 To post a user, create a ```POST``` request using the URL:
 
