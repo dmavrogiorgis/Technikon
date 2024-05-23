@@ -1,4 +1,4 @@
-package apiCalls.propertyOwner;
+package apiCalls.property;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,26 +7,25 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 
-public class PostPropertyOwner {
+public class PostPropertyByOwnerId {
 
     public static void main(String[] args) {
 
         try {
-            String url = "http://localhost:8080/api/owner";
+            int ownerId = 22;
+            String url = "http://localhost:8080/api/owner/" + ownerId + "/property";
             String json = """
                     {
                       "id": 0,
-                      "tin": "123456789",
-                      "name": "Tyxaios",
-                      "surname": "Tyxaiopoulos",
-                      "address": "Tyxaia Dieuthynsi 55",
-                      "phoneNumber": "6988552255",
-                      "email": "tyxaio.email@example.com",
-                      "username": "rnd(uname5)",
-                      "password": "asdf1234!@",
-                      "active": true
+                      "propertyIN": 223456789,
+                      "address": "Example Address 223",
+                      "yearOfConstruct": 2005,
+                      "propertyOwnerId": ownerId,
+                      "picturePath": "images property jpg",
+                      "typeOfProperty": "APARTMENT"
                     }
                     """;
+
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -37,17 +36,21 @@ public class PostPropertyOwner {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 201) {
-                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property Owner successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else if (response.statusCode() == 409) {
-                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - \u001B[33mProperty Owner already exists in the database\u001B[0m (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - \u001B[33mProperty already exists in the database\u001B[0m (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else {
-                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - Property Owner creation failed (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - Property creation failed (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             }
 
             if (!response.body().isEmpty()) {
-                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m (Response body: not empty)");
-                System.out.println("Response body:");
-                printJson(response.body());
+                if (response.body().contains("201")) {
+                    System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m (Response body: not empty)");
+                } else if (response.body().contains("400")) {
+                    System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Response body: contains error 400 - Bad Request)");
+                    System.out.println("Response body:");
+                    printJson(response.body());
+                }
             } else {
                 System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Response body: empty)");
             }

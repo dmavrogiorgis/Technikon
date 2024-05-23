@@ -1,4 +1,4 @@
-package apiCalls;
+package apiCalls.collections;
 
 import apiCalls.propertyOwner.DeletePropertyOwnerByTin;
 import apiCalls.propertyOwner.GetPropertyOwnerById;
