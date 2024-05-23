@@ -7,7 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 
-public class PostPropertyOwner {
+public class PostPropertyOwner1 {
 
     public static void main(String[] args) {
 
@@ -19,10 +19,10 @@ public class PostPropertyOwner {
                       "tin": "123456789",
                       "name": "Tyxaios",
                       "surname": "Tyxaiopoulos",
-                      "address": "Tyxaia Dieuthynsi 55",
-                      "phoneNumber": "6988552255",
-                      "email": "tyxaio.email@example.com",
-                      "username": "rnd(uname5)",
+                      "address": "Tyxaia Dieuthynsi 51",
+                      "phoneNumber": "6988552251",
+                      "email": "tyxaio.email.1@example.com",
+                      "username": "rnd(uname1)",
                       "password": "asdf1234!@",
                       "active": true
                     }

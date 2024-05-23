@@ -44,6 +44,8 @@ public class PostRepairForPropertyByPropertyId {
             if (!response.body().isEmpty()) {
                 if (response.body().contains("201")) {
                     System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m (Response body: not empty)");
+                    System.out.println("Response body:");
+                    printJson(response.body());
                 } else if (response.body().contains("400")) {
                     System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m (Response body: contains error 400 - Bad Request)");
                     System.out.println("Response body:");

@@ -4,7 +4,7 @@ import apiCalls.property.GetPropertiesByOwnerId;
 import apiCalls.property.GetPropertyByPropertyIdAndByOwnerId;
 import apiCalls.property.PostPropertyByOwnerId;
 import apiCalls.propertyOwner.GetPropertyOwnerById;
-import apiCalls.propertyOwner.PostPropertyOwner;
+import apiCalls.propertyOwner.PostPropertyOwner1;
 import apiCalls.propertyOwner.PutPropertyOwnerByTin;
 import apiCalls.repair.PostRepairForPropertyByPropertyId;
 
@@ -13,7 +13,7 @@ public class Presentation {
     public static void main(String[] args) {
 
         System.out.println("\u001B[1m1) Running Post Property Owner\u001B[0m");
-        PostPropertyOwner.main(args);
+        PostPropertyOwner1.main(args);
         System.out.println();
         waitFor();
 

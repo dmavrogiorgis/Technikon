@@ -16,8 +16,8 @@ public class PutPropertyOwnerByTin {
         String url = "http://localhost:8080/api/owner/update/" + tinNumber;
         String json = """
         {
-          "address": "Nea Tyxaia Dieuthynsi 55",
-          "email": "neo.tyxaio.email@example.com",
+          "address": "Nea Tyxaia Dieuthynsi 51",
+          "email": "neo.tyxaio.email.1.p@example.com",
           "password": "NEWasdf1234!@"
         }
         """;
