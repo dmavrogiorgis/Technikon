@@ -16,12 +16,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RepairResponseDTO {
+    private long id;
+    private TypeOfRepair typeOfRepair;
+    private StatusOfRepair statusOfRepair;
     private String description;
     private BigDecimal costOfRepair;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate repairDate;
-    private StatusOfRepair statusOfRepair;
-    private TypeOfRepair typeOfRepair;
     private long propertyId;
     private boolean isActive;
 }

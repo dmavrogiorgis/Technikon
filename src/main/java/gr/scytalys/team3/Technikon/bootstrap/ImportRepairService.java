@@ -1,8 +1,7 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
-import gr.scytalys.team3.Technikon.model.Property;
-import gr.scytalys.team3.Technikon.model.PropertyOwner;
-import gr.scytalys.team3.Technikon.model.Repair;
+import com.github.javafaker.Faker;
+import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -13,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Configuration
@@ -30,60 +30,68 @@ private final PropertyRepository propertyRepository;
     }
 
     private void run(String... args) {
+        PropertyOwner propertyOwner = new PropertyOwner();
+        propertyOwner.setTin("123456789");
+        propertyOwner.setName("mpampis");
+        propertyOwner.setSurname("tennes");
+        propertyOwner.setAddress("Lamia");
+        propertyOwner.setPhoneNumber("6946666666");
+        propertyOwner.setEmail("mathe@mpalitsa.gr");
+        propertyOwner.setUsername("tesseratesseradio");
+        propertyOwner.setPassword("passW0rd");
+        propertyOwnerRepository.save(propertyOwner);
+
+        Property property = new Property();
+        property.setPropertyIN(123);
+        property.setPropertyOwner(propertyOwner);
+        propertyRepository.save(property);
+
+        Property property1 = new Property();
+        property1.setPropertyIN(456);
+        property1.setPropertyOwner(propertyOwner);
+        propertyRepository.save(property1);
+        System.out.println(property1);
+
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
-        repair.setTypeOfRepair("PAINTING");
+        repair.setTypeOfRepair(TypeOfRepair.PAINTING);
+        repair.setProperty(property);
+        repair.setRepairDate(LocalDate.now());
+        repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repairRepository.save(repair);
+        System.out.println(repair);
 
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
-        repair1.setTypeOfRepair("INSULATION");
+        repair1.setTypeOfRepair(TypeOfRepair.FRAMES);
+        repair1.setProperty(property);
+        repair1.setRepairDate(LocalDate.now());
+        repair1.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repairRepository.save(repair1);
 
         Repair repair2 = new Repair();
         repair2.setCostOfRepair(new BigDecimal(400));
-        repair2.setTypeOfRepair("FRAMES");
+        repair2.setTypeOfRepair(TypeOfRepair.INSULATION);
+        repair2.setProperty(property1);
+        repair2.setRepairDate(LocalDate.now());
+        repair2.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repairRepository.save(repair2);
 
         Repair repair3 = new Repair();
         repair3.setCostOfRepair(new BigDecimal(150));
-        repair3.setTypeOfRepair("PLUMBING");
+        repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
+        repair3.setProperty(property1);
+        repair3.setRepairDate(LocalDate.now());
+        repair3.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repairRepository.save(repair3);
 
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
-        repair4.setTypeOfRepair("ELECTRICAL WORK");
+        repair4.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
+        repair4.setProperty(property);
+        repair4.setRepairDate(LocalDate.now());
+        repair4.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repairRepository.save(repair4);
-
-        Faker faker = new Faker();
-        for (int i=0; i<numOfIterations; i++){
-            PropertyOwner po = createRandomPO();
-            propertyOwnerRepository.save(po);
-
-            double randomNum = Math.random();
-
-            if (randomNum > 0.5){
-                Property property = new Property();
-                property.setPropertyIN(faker.number().digits(9));
-                property.setPropertyOwner(po);
-                propertyRepository.save(property);
-            }
-        }
     }
 
-    public PropertyOwner createRandomPO(){
-        Faker faker = new Faker();
-
-        PropertyOwner po = new PropertyOwner();
-        po.setTin(faker.number().digits(9));
-        po.setName(faker.name().firstName());
-        po.setSurname(faker.name().lastName());
-        po.setAddress(faker.address().fullAddress());
-        po.setPhoneNumber("69" + faker.numerify("##########"));
-        po.setEmail(faker.internet().emailAddress());
-        po.setUsername(faker.name().username());
-        po.setPassword(faker.internet().password());
-        po.setActive(true);
-        return po;
-    }
 }

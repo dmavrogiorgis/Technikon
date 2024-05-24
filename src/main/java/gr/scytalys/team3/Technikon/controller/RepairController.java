@@ -1,9 +1,9 @@
 package gr.scytalys.team3.Technikon.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
 import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
 import gr.scytalys.team3.Technikon.dto.RepairUpdateDTO;
+import gr.scytalys.team3.Technikon.service.PropertyService;
 import gr.scytalys.team3.Technikon.service.RepairService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RepairController {
     private final RepairService repairService;
+    private final PropertyService propertyService;
 
     @PostMapping("property/{propertyId}/repair")
     ResponseEntity<RepairResponseDTO> createRepair(@PathVariable long propertyId,
@@ -42,7 +43,7 @@ public class RepairController {
     ResponseEntity<List<RepairResponseDTO>> getRepairsByPropertyId(@PathVariable long propertyId){
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "Retrieving List of repairs ");
-        List<RepairResponseDTO> repairs = repairService.getRepairsByPropertyId(propertyId);
+        List<RepairResponseDTO> repairs = repairService.getRepairsByPropertyId(propertyService.getPropertyById(propertyId).getId());
         return new ResponseEntity<>(repairs, headers, HttpStatus.OK);
     }
 
