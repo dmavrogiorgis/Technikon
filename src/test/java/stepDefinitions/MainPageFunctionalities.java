@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import apiCalls.java.homeController.GetHome;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -7,24 +8,16 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static stepDefinitions.TestSetup.driver;
 
 public class MainPageFunctionalities {
-    @Given("The Application is Up And Running {string}")
-    public void applicationUpRunning(String apiEndPoint) throws IOException {
-        validateResponseCode200(apiEndPoint);
-    }
 
-    private void validateResponseCode200(String apiEndPoint) throws IOException {
-        URL url = new URL(apiEndPoint);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("GET");
-        int responseCode = httpURLConnection.getResponseCode();
-        Assert.assertEquals("The Application Is Up And Running", 200, responseCode);
+    @Given("The Application is Up And Running")
+    public void applicationUpRunning() {
+        GetHome getHome = new GetHome();
+        GetHome.main(null);
+        assertEquals(200, getHome.getStatusCodeGetHome());
     }
 
     @When("I click the Log-In Button to Navigate to the Log In Page")

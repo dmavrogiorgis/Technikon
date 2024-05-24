@@ -7,7 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 
-public class PutPropertyOwnerByTin {
+public class PutPropertyOwner1ByTin {
 
     static String tinNumber = "123456789";
 
@@ -43,5 +43,19 @@ public class PutPropertyOwnerByTin {
             e.printStackTrace();
         }
     }
-
+    public int getStatusCodePutPropertyOwner1ByTin() {
+        try {
+            String uri = "http://localhost:8080/api/owner/update/" + tinNumber;
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(uri))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.statusCode();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

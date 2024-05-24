@@ -14,6 +14,7 @@ public class PostPropertyOwner1 {
     public static void main(String[] args) {
 
         try {
+
             String url = "http://localhost:8080/api/owner";
             String json = """
                     {
@@ -35,7 +36,6 @@ public class PostPropertyOwner1 {
                     .header("Content-Type", "application/json")
                     .POST(BodyPublishers.ofString(json))
                     .build();
-
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 201) {
@@ -57,5 +57,25 @@ public class PostPropertyOwner1 {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getStatusCodePostPropertyOwner1() {
+
+        try {
+
+            String uri = "http://localhost:8080/api/owner";
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(uri))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.statusCode();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
     }
 }

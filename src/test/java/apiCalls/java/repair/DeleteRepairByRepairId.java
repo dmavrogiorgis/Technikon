@@ -12,7 +12,7 @@ public class DeleteRepairByRepairId {
 
         try {
 
-            String repairId = "456";
+            String repairId = "6";
             String url = "http://localhost:8080/api/owner/repair/" + repairId;
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()

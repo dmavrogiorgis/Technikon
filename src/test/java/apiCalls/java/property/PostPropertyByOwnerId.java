@@ -7,11 +7,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class PostPropertyByOwnerId {
 
     public static void main(String[] args) {
 
         try {
+
             int ownerId = 21;
             String url = "http://localhost:8080/api/owner/" + ownerId + "/property";
             String json = """
@@ -39,8 +42,10 @@ public class PostPropertyByOwnerId {
                 System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else if (response.statusCode() == 409) {
                 System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - \u001B[33mProperty already exists in the database\u001B[0m (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
-            } else {
+            } else if (response.statusCode() != 200){
                 System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - Property creation failed (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
+            } else {
+                fail("Not yet implemented");
             }
 
             if (!response.body().isEmpty()) {

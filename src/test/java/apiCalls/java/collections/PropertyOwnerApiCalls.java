@@ -2,7 +2,7 @@ package apiCalls.java.collections;
 
 import apiCalls.java.propertyOwner.DeletePropertyOwnerByTin;
 import apiCalls.java.propertyOwner.PostPropertyOwner1;
-import apiCalls.java.propertyOwner.PutPropertyOwnerByTin;
+import apiCalls.java.propertyOwner.PutPropertyOwner1ByTin;
 import apiCalls.java.propertyOwner.GetPropertyOwnerById;
 
 public class PropertyOwnerApiCalls {
@@ -20,7 +20,7 @@ public class PropertyOwnerApiCalls {
         waitFor();
 
         System.out.println("\u001B[1m3) Running PutPropertyOwnerByTin\u001B[0m");
-        PutPropertyOwnerByTin.main(args);
+        PutPropertyOwner1ByTin.main(args);
         System.out.println();
         waitFor();
 

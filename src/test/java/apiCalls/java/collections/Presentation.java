@@ -7,7 +7,7 @@ import apiCalls.java.property.GetPropertiesByOwnerId;
 import apiCalls.java.property.GetPropertyByPropertyIdAndByOwnerId;
 import apiCalls.java.property.PostPropertyByOwnerId;
 import apiCalls.java.propertyOwner.GetPropertyOwnerById;
-import apiCalls.java.propertyOwner.PutPropertyOwnerByTin;
+import apiCalls.java.propertyOwner.PutPropertyOwner1ByTin;
 import apiCalls.java.repair.PostRepairForPropertyByPropertyId;
 
 public class Presentation {
@@ -45,7 +45,7 @@ public class Presentation {
         waitFor();
 
         System.out.println("\u001B[1m3) Running Put Property Owner By Tin\u001B[0m");
-        PutPropertyOwnerByTin.main(args);
+        PutPropertyOwner1ByTin.main(args);
         System.out.println();
         waitFor();
 

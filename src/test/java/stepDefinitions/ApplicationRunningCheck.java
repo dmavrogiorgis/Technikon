@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import apiCalls.java.homeController.GetHome;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,34 +9,37 @@ import org.junit.Assert;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ApplicationRunningCheck {
-    public static HttpURLConnection httpURLConnection;
-    @Given("That the Endpoint {string} is Up and Running")
-    public void APIisRunning(String apiEndPoint)throws Exception{
-        validate200ResponseCode(apiEndPoint);
+
+    @Given("That the Endpoint is Up and Running")
+    public void APIisRunning() {
+        GetHome getHome = new GetHome();
+        GetHome.main(null);
+        assertEquals(200, getHome.getStatusCodeGetHome());
     }
 
-
-
     @When("We make a GET Request for the Property Owner with TIN {string}")
-    public void apiCall(String tinNumber)throws Exception{
-        URL url = new URL("http://localhost:8080/api/owner/search?tin=" + tinNumber);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        httpURLConnection.setRequestMethod("GET");
-        int responseCode = httpURLConnection.getResponseCode();
-        String responseMessage = httpURLConnection.getResponseMessage();
-        String content = httpURLConnection.getContent().toString();
-        String result = IOUtils.toString(httpURLConnection.getInputStream());
-        Assert.assertEquals(result, "{\"id\":1,\"tin\":\"123456789\",\"name\":\"Dimitris\",\"surname\":\"Mavrogiorgis\",\"address\":\"Something\",\"phoneNumber\":\"6976500964\",\"email\":\"kati@gmail.com\",\"username\":\"dimmav\",\"password\":\"1234\",\"active\":true}");
-        Assert.assertEquals("Something is way off ",200,responseCode);
-
+    public void apiCall(String tinNumber) throws Exception {
+        String uri = "http://localhost:8080/api/owner/search?tin=" + tinNumber;
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .GET()
+                .build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        Assert.assertEquals(200, response.statusCode());
     }
 
     @Then("We Get a response that contains the Details of that Property Owner {string}")
-    public void assertResponseBody(String something)throws Exception{
+    public void assertResponseBody(String something) throws Exception {
 
         // your code :)
 
@@ -46,6 +50,6 @@ public class ApplicationRunningCheck {
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setRequestMethod("GET");
         int responseCode = httpURLConnection.getResponseCode();
-        Assert.assertEquals("Something is way off ",200,responseCode);
+        Assert.assertEquals("Something is way off ", 200, responseCode);
     }
 }

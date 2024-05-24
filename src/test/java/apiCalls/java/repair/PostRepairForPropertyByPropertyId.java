@@ -30,9 +30,8 @@ public class PostRepairForPropertyByPropertyId {
                     .header("Content-Type", "application/json")
                     .POST(BodyPublishers.ofString(requestBody))
                     .build();
-
-
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
             if (response.statusCode() == 201) {
                 System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else if (response.statusCode() == 409) {

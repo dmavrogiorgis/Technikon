@@ -10,9 +10,9 @@ import java.net.http.HttpResponse;
 
 public class GetPropertyOwnerById {
 
-    public static void main(String[] args) {
+    static String tinNumber = "123456789";
 
-        String tinNumber = "123456789";
+    public static void main(String[] args) {
 
         try {
             String uri = "http://localhost:8080/api/owner/search?tin=" + tinNumber;
@@ -40,5 +40,21 @@ public class GetPropertyOwnerById {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getStatusCodeGetPropertyOwnerById() {
+        try {
+            String uri = "http://localhost:8080/api/owner/search?tin=" + tinNumber;
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(uri))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.statusCode();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

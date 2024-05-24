@@ -19,7 +19,7 @@ public class PutRepairByRepairId {
                       "typeOfRepair": "PAINTING",
                       "description": "Paint the kitchen and balcony.",
                       "repairDate": "2024-05-30",
-                      "propertyId": 6,
+                      "propertyId": 3,
                       "statusOfRepair": "PENDING",
                       "active": true
                     }
@@ -33,6 +33,12 @@ public class PutRepairByRepairId {
                     .PUT(BodyPublishers.ofString(requestBody))
                     .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property successfully created (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+            } else {
+                System.out.println("\u001B[1m\u001B[31mTest Failed\u001B[0m - \u001B[33mProperty already exists in the database\u001B[0m (Status code: Expected: 200 - Actual: " + response.statusCode() + ")");
+            }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
