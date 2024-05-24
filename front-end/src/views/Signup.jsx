@@ -55,7 +55,6 @@ const Signup = () => {
             username : signupData.signupUsername,
             password : signupData.signupPassword, 
         };
-        console.log(transformedData)
 
         try{
             const response = await axios.post(API_SIGNUP, transformedData);
