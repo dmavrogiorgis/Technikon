@@ -27,28 +27,3 @@ View the list of available endpoint from this Swagger URL:
 
     http://localhost:8080/swagger-ui/index.html
 
----
-
-#### API Endpoint Testing
-
-To post a user, create a ```POST``` request using the URL:
-
-    http://localhost:8080/api/owner
-
-and in the body of the request fill the json:
-
-    {
-      "id": 0,
-      "tin": "string",
-      "name": "string",
-      "surname": "string",
-      "address": "string",
-      "phoneNumber": "string",
-      "email": "string",
-      "username": "string",
-      "password": "string",
-      "active": true
-    }
-
-As a confirmation, the ```Headers``` should contain: ```Key: Content-Type``` with the corresponding ```Value: application/json```.
-
