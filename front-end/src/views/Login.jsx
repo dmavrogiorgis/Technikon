@@ -1,16 +1,19 @@
-import React, {useState} from "react";
-import InputField from '/src/components/InputField.jsx';
-import { TextField, Button, Box, Typography, Container, Alert } from '@mui/material';
-import axios from 'axios';
-import {API_LOGIN} from '/src/api';
+import React, {useState, useContext} from "react";
+import {Avatar, TextField, Button, Box, Link, Typography, Container, CircularProgress } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
 
     const [loginData, setLoginData] = useState({
         loginUsername: "",
-        loginPassword: ""
+        loginPassword: "",
+        isSubmitting: false,
+        error: null,
     });
+
+    const { login } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -20,55 +23,51 @@ const Login = () => {
 
     const submitLogin =  async (e) => {
         e.preventDefault();
+        setLoginData({...loginData, isSubmitting: true, error: null});
         
         const transformedData = {
             username: loginData.loginUsername, 
             password: loginData.loginPassword
         };
 
-        try{
-            const response = await axios.post(API_LOGIN, transformedData);
-            
-            if(response.status === 200){
-
-                const { token, id, authorities} = response.data;
-                
-                //console.log('Token:', token, 'ID:', id, 'Authorities:', authorities);
-
-                localStorage.setItem('token', token);
-                localStorage.setItem('userId', id);
-
-                const hasAdminRole = authorities.some(auth => auth.authority === 'ROLE_ADMIN');
-                
-                if(hasAdminRole){
-                    navigate('/admin');
-                }else{
-                    navigate('/owner');
-                }
-            }
-        } catch (error) {
-            console.error('Error logging in:', error);
+        const result = await login(transformedData);
+        console.log('authdata:', JSON.parse(localStorage.getItem('authData')));
+        if(result.success){
+          if(result.isAdmin){
+            navigate('/admin');
+          }else{
+              navigate('/owner');
+          }
+        }else{
+          setLoginData({...loginData, isSubmitting: false, error: result.error})
         }
+        
+        
     };
 
     return (
         <Container component="main" maxWidth="xs">
-        <Box 
-          component="form" 
-          onSubmit={submitLogin}  
-          sx={{ 
-            mt: 10, 
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center', 
-          }}>
+          <Box 
+            component="form" 
+            onSubmit={submitLogin}  
+            sx={{ 
+              mt: 8, 
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center', 
+            }}
+          >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            Sign In
           </Typography>
           <TextField
             variant="outlined"
             margin="normal"
             required
+            fullWidth
             id="loginUsername"
             label="Username"
             name="loginUsername"
@@ -81,6 +80,7 @@ const Login = () => {
             variant="outlined"
             margin="normal"
             required
+            fullWidth
             name="loginPassword"
             label="Password"
             type="password"
@@ -89,14 +89,24 @@ const Login = () => {
             value={loginData.loginPassword}
             onChange={updateLoginForm}
           />
+            {loginData.error && (
+              <Typography color="error" variant="body2">
+                {loginData.error}
+              </Typography>
+            )}
           <Button
             type="submit"
             variant="contained"
             color="primary"
             sx={{ mt: 3, mb: 2 }}
-            //disabled={isLoading}
-          > Login
+          > 
+            {loginData.isSubmitting ? <CircularProgress size={24} /> : "Sign In"} 
           </Button>
+          <Box sx={{ alignSelf: "flex-end", mt: 2 }}>
+            <Link href="/signup" variant="body2">
+              Don't have an acount? Sign Up
+            </Link>
+          </Box>
         </Box>
     </Container>
     );
