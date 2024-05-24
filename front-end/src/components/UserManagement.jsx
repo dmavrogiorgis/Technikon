@@ -4,7 +4,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import SearchContainer from "./SearchContainer";
 import ResponseContainer from "./ResponseContainer";
 import UpdateModal from "./UpdateModal";
-const AdminUserManagement = () => {
+
+const UserManagement = ({children}) => {
     const [searchCriteria, setSearchCriteria] = useState({
         searchTin: '',
         searchEmail: '',
@@ -78,7 +79,7 @@ const AdminUserManagement = () => {
           handleOnChange={handleOnChange}
           handleSubmit={handleSubmit}  
         >
-          Admin User Management
+          {children}
         </SearchContainer>
         <ResponseContainer 
           response={response}
@@ -97,4 +98,4 @@ const AdminUserManagement = () => {
     );
 };
 
-export default AdminUserManagement;
+export default UserManagement;

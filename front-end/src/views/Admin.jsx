@@ -2,7 +2,7 @@ import { useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../contexts/AuthContext";
 import UserDetails from '../components/UserDetails';
-import AdminUserManagement from "../components/AdminUserManagement";
+import UserManagement from "../components/UserManagement";
 import {Box, Button} from '@mui/material';
 
 const Admin = () => {
@@ -30,7 +30,7 @@ const Admin = () => {
           </Button>
         </Box>
       <UserDetails authData={authData}/>
-      <AdminUserManagement />   
+      <UserManagement> Admin User Management </UserManagement>    
     </div>
   );
 };

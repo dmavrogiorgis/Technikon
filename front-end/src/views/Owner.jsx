@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../contexts/AuthContext";
 import UserDetails from '../components/UserDetails';
 import {Box, Button} from '@mui/material';
+import UserManagement from "../components/UserManagement";
 
 const Owner = () => {
   const {authData, loading, isUser, logout} = useContext(AuthContext);
@@ -29,6 +30,7 @@ const Owner = () => {
         </Button>
       </Box>
       <UserDetails authData={authData} logout={logout}/>
+      <UserManagement> My Profile Management </UserManagement>
     </div>
   );
 };
