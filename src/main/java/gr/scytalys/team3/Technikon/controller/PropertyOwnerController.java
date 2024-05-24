@@ -25,6 +25,7 @@ public class PropertyOwnerController {
 
     @GetMapping("/search")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     public ResponseEntity<PropertyOwnerResponseDTO> searchPropertyOwner(@RequestParam(required = false) String tin,
                                                                         @RequestParam(required = false) String email,
                                                                         @RequestParam(required = false) String username,
@@ -45,6 +46,7 @@ public class PropertyOwnerController {
 
     @PutMapping("/update/{propertyOwnerTIN}")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     public ResponseEntity<PropertyOwnerResponseDTO> updatePropertyOwner(@PathVariable String propertyOwnerTIN,
                                                                         @RequestBody PropertyOwnerUpdateDTO propertyOwnerUpdateDTO,
                                                                         Authentication authentication) {
@@ -62,6 +64,7 @@ public class PropertyOwnerController {
 
     @DeleteMapping("/delete/{propertyOwnerTIN}")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
     public ResponseEntity<PropertyOwnerSearchDTO> deletePropertyOwner(@PathVariable String propertyOwnerTIN,
                                                                       Authentication authentication) {
         if (authentication.getAuthorities().stream().noneMatch(sga -> sga.getAuthority().equals("ROLE_ADMIN"))) {

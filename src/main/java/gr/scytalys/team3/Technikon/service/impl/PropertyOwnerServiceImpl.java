@@ -87,7 +87,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         propertyOwnerValidator.validatePropertyOwnerUpdate(propertyOwnerUpdateDTO.getEmail());
-        propertyOwnerUpdateDTO.setPassword(encoder.encode(propertyOwnerUpdateDTO.getPassword()));
+        if(propertyOwnerUpdateDTO.getPassword() != null){
+            propertyOwnerUpdateDTO.setPassword(encoder.encode(propertyOwnerUpdateDTO.getPassword()));
+        }
         propertyOwnerRepository
                 .save(propertyOwnerMapper
                         .updatePropertyOwnerFromDto(propertyOwnerUpdateDTO, propertyOwnerDB));

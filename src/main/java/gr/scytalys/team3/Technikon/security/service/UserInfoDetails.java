@@ -32,7 +32,7 @@ public class UserInfoDetails implements UserDetails {
         this.id = user.getId();
 
         if (user instanceof Admin){
-            authorities = Arrays.stream(new String[]{"ROLE_ADMIN","ROLE_USER"})
+            authorities = Arrays.stream(new String[]{"ROLE_ADMIN"})
                                 .map(SimpleGrantedAuthority::new)
                                 .collect(Collectors.toList());
         }else {
