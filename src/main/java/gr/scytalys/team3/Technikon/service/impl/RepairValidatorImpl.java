@@ -1,5 +1,6 @@
 package gr.scytalys.team3.Technikon.service.impl;
 
+import gr.scytalys.team3.Technikon.dto.PropertyDTO;
 import gr.scytalys.team3.Technikon.dto.RepairCreateDTO;
 import gr.scytalys.team3.Technikon.dto.RepairResponseDTO;
 import gr.scytalys.team3.Technikon.dto.RepairUpdateDTO;
@@ -112,5 +113,12 @@ public class RepairValidatorImpl implements RepairValidator {
 
     public boolean validateDateBetween(@DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate startDate, @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate endDate) {
         return !startDate.isAfter(endDate);
+    }
+
+    @Override
+    public boolean validateProperty(RepairResponseDTO repairResponseDTO) {
+//        PropertyDTO propertyDTO = propertyService.getPropertyById(repairResponseDTO.getPropertyId());
+//        propertyDTO.
+        return false;
     }
 }
