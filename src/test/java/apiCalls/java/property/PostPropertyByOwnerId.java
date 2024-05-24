@@ -1,4 +1,4 @@
-package apiCalls.repair;
+package apiCalls.java.property;
 
 import java.io.IOException;
 import java.net.URI;
@@ -7,20 +7,22 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 
-public class PostRepairForPropertyByPropertyId {
+public class PostPropertyByOwnerId {
 
     public static void main(String[] args) {
 
         try {
-            String propertyId = "3";
-            String url = "http://localhost:8080/api/owner/property/" + propertyId + "/repair";
-
-            String requestBody = """
+            int ownerId = 21;
+            String url = "http://localhost:8080/api/owner/" + ownerId + "/property";
+            String json = """
                     {
-                      "typeOfRepair": "PAINTING",
-                      "description": "Paint the living room and bathroom.",
-                      "repairDate": "2024-05-24",
-                      "propertyId": 3
+                      "id": 0,
+                      "propertyIN": 223456789,
+                      "address": "Example Address 223",
+                      "yearOfConstruct": 2005,
+                      "propertyOwnerId": 21,
+                      "picturePath": "images property jpg",
+                      "typeOfProperty": "APARTMENT"
                     }
                     """;
 
@@ -28,11 +30,11 @@ public class PostRepairForPropertyByPropertyId {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .header("Content-Type", "application/json")
-                    .POST(BodyPublishers.ofString(requestBody))
+                    .POST(BodyPublishers.ofString(json))
                     .build();
 
-
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
             if (response.statusCode() == 201) {
                 System.out.println("\u001B[1m\u001B[32mTest Passed\u001B[0m - Property successfully created (Status code: Expected: 201 - Actual: " + response.statusCode() + ")");
             } else if (response.statusCode() == 409) {

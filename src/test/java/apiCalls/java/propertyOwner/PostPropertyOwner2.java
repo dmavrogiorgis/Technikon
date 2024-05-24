@@ -1,13 +1,15 @@
-package apiCalls.propertyOwner;
+package apiCalls.java.propertyOwner;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpResponse;
 
-public class PostPropertyOwner1 {
+import static apiCalls.java.support.PrettyJsonPrinter.printJson;
+
+public class PostPropertyOwner2 {
 
     public static void main(String[] args) {
 
@@ -16,14 +18,14 @@ public class PostPropertyOwner1 {
             String json = """
                     {
                       "id": 0,
-                      "tin": "123456789",
-                      "name": "Tyxaios",
-                      "surname": "Tyxaiopoulos",
-                      "address": "Tyxaia Dieuthynsi 51",
-                      "phoneNumber": "6988552251",
-                      "email": "tyxaio.email.1@example.com",
-                      "username": "rnd(uname1)",
-                      "password": "asdf1234!@",
+                      "tin": "223456789",
+                      "name": "Aristidis",
+                      "surname": "Aristidou",
+                      "address": "Tyxaia Dieuthynsi 52",
+                      "phoneNumber": "6988552252",
+                      "email": "tyxaio.email.2@example.com",
+                      "username": "rnd(uname2)",
+                      "password": "qwert12345%",
                       "active": true
                     }
                     """;
@@ -54,17 +56,6 @@ public class PostPropertyOwner1 {
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        }
-    }
-
-    private static void printJson(String pjson) {
-        pjson = pjson.trim().substring(1, pjson.length() - 1);
-        String[] keyValuePairs = pjson.split(",");
-        for (String pair : keyValuePairs) {
-            String[] keyValue = pair.split(":");
-            String key = keyValue[0].trim();
-            String value = keyValue[1].trim();
-            System.out.println(key + ": " + value);
         }
     }
 }

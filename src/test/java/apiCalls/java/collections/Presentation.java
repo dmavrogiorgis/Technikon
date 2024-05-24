@@ -1,16 +1,38 @@
-package apiCalls.collections;
+package apiCalls.java.collections;
 
-import apiCalls.property.GetPropertiesByOwnerId;
-import apiCalls.property.GetPropertyByPropertyIdAndByOwnerId;
-import apiCalls.property.PostPropertyByOwnerId;
-import apiCalls.propertyOwner.GetPropertyOwnerById;
-import apiCalls.propertyOwner.PostPropertyOwner1;
-import apiCalls.propertyOwner.PutPropertyOwnerByTin;
-import apiCalls.repair.PostRepairForPropertyByPropertyId;
+import apiCalls.java.homeController.GetContactUs;
+import apiCalls.java.homeController.GetHome;
+import apiCalls.java.propertyOwner.PostPropertyOwner1;
+import apiCalls.java.property.GetPropertiesByOwnerId;
+import apiCalls.java.property.GetPropertyByPropertyIdAndByOwnerId;
+import apiCalls.java.property.PostPropertyByOwnerId;
+import apiCalls.java.propertyOwner.GetPropertyOwnerById;
+import apiCalls.java.propertyOwner.PutPropertyOwnerByTin;
+import apiCalls.java.repair.PostRepairForPropertyByPropertyId;
 
 public class Presentation {
 
     public static void main(String[] args) {
+
+        System.out.println("\u001B[1mTesting Main Page Functionality \"Contact Us Button\"\u001B[0m");
+        GetContactUs.main(args);
+        System.out.println();
+        waitFor();
+
+        System.out.println("\u001B[1mTesting Main Page Functionality \"Home Button\"\u001B[0m");
+        GetHome.main(args);
+        System.out.println();
+        waitFor();
+
+        System.out.println("\u001B[1mTesting Administrator \"View All Properties\" Functionality\u001B[0m");
+        GetHome.main(args);
+        System.out.println();
+        waitFor();
+
+        System.out.println("\u001B[1mTesting Administrator \"View Active Properties\" Functionality\u001B[0m");
+        GetHome.main(args);
+        System.out.println();
+        waitFor();
 
         System.out.println("\u001B[1m1) Running Post Property Owner\u001B[0m");
         PostPropertyOwner1.main(args);

@@ -1,4 +1,4 @@
-package apiCalls.propertyOwner;
+package apiCalls.java.propertyOwner;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,22 +13,22 @@ public class PutPropertyOwnerByTin {
 
     public static void main(String[] args) {
 
-        String url = "http://localhost:8080/api/owner/update/" + tinNumber;
-        String json = """
-        {
-          "address": "Nea Tyxaia Dieuthynsi 51",
-          "email": "neo.tyxaio.email.1.p@example.com",
-          "password": "NEWasdf1234!@"
-        }
-        """;
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .header("Content-Type", "application/json")
-                .PUT(BodyPublishers.ofString(json))
-                .build();
-
         try {
+
+            String url = "http://localhost:8080/api/owner/update/" + tinNumber;
+            String json = """
+                    {
+                      "address": "Nea Tyxaia Dieuthynsi 51",
+                      "email": "neo.tyxaio.email.1.p@example.com",
+                      "password": "NEWasdf1234!@"
+                    }
+                    """;
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .header("Content-Type", "application/json")
+                    .PUT(BodyPublishers.ofString(json))
+                    .build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
@@ -43,4 +43,5 @@ public class PutPropertyOwnerByTin {
             e.printStackTrace();
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package apiCalls.propertyOwner;
+package apiCalls.java.propertyOwner;
 
 import java.io.IOException;
 import java.net.URI;

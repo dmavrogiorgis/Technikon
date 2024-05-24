@@ -1,9 +1,9 @@
-package apiCalls.collections;
+package apiCalls.java.collections;
 
-import apiCalls.propertyOwner.DeletePropertyOwnerByTin;
-import apiCalls.propertyOwner.GetPropertyOwnerById;
-import apiCalls.propertyOwner.PostPropertyOwner1;
-import apiCalls.propertyOwner.PutPropertyOwnerByTin;
+import apiCalls.java.propertyOwner.DeletePropertyOwnerByTin;
+import apiCalls.java.propertyOwner.PostPropertyOwner1;
+import apiCalls.java.propertyOwner.PutPropertyOwnerByTin;
+import apiCalls.java.propertyOwner.GetPropertyOwnerById;
 
 public class PropertyOwnerApiCalls {
 

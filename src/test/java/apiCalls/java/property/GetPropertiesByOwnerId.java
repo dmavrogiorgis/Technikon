@@ -1,4 +1,4 @@
-package apiCalls.property;
+package apiCalls.java.property;
 
 import java.io.IOException;
 import java.net.URI;
