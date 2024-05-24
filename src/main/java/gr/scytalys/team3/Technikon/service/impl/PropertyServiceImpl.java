@@ -7,12 +7,14 @@ import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.service.PropertyService;
 import gr.scytalys.team3.Technikon.service.PropertyValidator;
 import jakarta.el.PropertyNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.mapstruct.ap.shaded.freemarker.template.utility.NullArgumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.security.InvalidParameterException;
 import java.util.List;
@@ -54,7 +56,7 @@ public class PropertyServiceImpl implements PropertyService {
     public PropertyDTO getPropertyById(long propertyId) {
         Property found = propertyRepository.findById(propertyId)
                 .filter(Property::isActive)
-                .orElse(null);
+                .orElseThrow(EntityNotFoundException::new);
         return propertyMapper.toPropertyDto(found);
     }
 
@@ -63,7 +65,7 @@ public class PropertyServiceImpl implements PropertyService {
     public PropertyDTO updateProperty(PropertyDTO propertyDTO) {
         Property found = propertyRepository.findById(propertyDTO.getId())
                 .filter(Property::isActive)
-                .orElseThrow();
+                .orElseThrow(NullPointerException::new);
 
             if (propertyDTO.getPropertyIN() != 0) {
                 found.setPropertyIN(propertyDTO.getPropertyIN());
@@ -83,20 +85,20 @@ public class PropertyServiceImpl implements PropertyService {
     public void deletePropertyById(long propertyId) {
         propertyRepository.findById(propertyId)
                 .filter(Property::isActive)
-                .orElseThrow();
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     @Override
     public boolean hasRepairTasks(long propertyId) {
         Property found = propertyRepository.findById(propertyId)
                 .filter(Property::isActive)
-                .orElseThrow();
+                .orElseThrow(EntityNotFoundException::new);
         return found.getRepairs()!=null;
     }
 
     @Override
     public void deactivatePropertyById(long propertyId) {
-        Property found = propertyRepository.findById(propertyId).orElse(null);
+        Property found = propertyRepository.findById(propertyId).orElseThrow(NullArgumentException::new);
         if (found != null) {
             found.setActive(false);
             propertyRepository.save(found);
@@ -109,14 +111,15 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public String deleteOrDeactivatePropertyById(long propertyId) {
-        Property found = propertyRepository.findById(propertyId).orElse(null);
-//        if (hasRepairTasks(propertyId)) {
+        Property found = propertyRepository.findById(propertyId)
+                .orElseThrow(EntityNotFoundException::new);
+       if (hasRepairTasks(propertyId)) {
             deactivatePropertyById(propertyId);
             return "Deactivated";
-//        } else {
-//            deletePropertyById(propertyId);
-//            return "Deleted";
-//        }
+      } else {
+           deletePropertyById(propertyId);
+            return "Deleted";
+      }
 
     }
     //-----------ADMIN------------

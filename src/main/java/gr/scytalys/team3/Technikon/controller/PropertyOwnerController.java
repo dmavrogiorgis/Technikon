@@ -9,16 +9,20 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "http://localhost:5174", allowCredentials = "true")
+@CrossOrigin
+@EnableWebMvc
 @RequestMapping("api/owner")
 public class PropertyOwnerController {
 
     private final PropertyOwnerService propertyOwnerService;
 
+
+    @CrossOrigin
     @PostMapping("")
     public ResponseEntity<PropertyOwnerDTO> createPropertyOwner(@RequestBody PropertyOwnerDTO propertyOwnerDTO) {
         HttpHeaders headers = new HttpHeaders();

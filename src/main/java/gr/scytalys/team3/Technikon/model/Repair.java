@@ -27,7 +27,7 @@ public class Repair {
     private LocalDate repairDate;
     @Enumerated(EnumType.STRING)
     @NotNull
-    private StatusOfRepair statusOfRepair;
+    private StatusOfRepair statusOfRepair = StatusOfRepair.PENDING;
     private boolean isActive = true;
     @JsonIgnore
     @ManyToOne

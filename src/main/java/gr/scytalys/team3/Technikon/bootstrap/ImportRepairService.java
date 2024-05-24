@@ -44,6 +44,7 @@ private final PropertyRepository propertyRepository;
         propertyOwnerRepository.save(propertyOwner);
 
         Property property = new Property();
+        property.setPropertyId(0);
         property.setPropertyIN(123456789);
         property.setPropertyOwner(propertyOwner);
         property.setPropertyOwner(propertyOwner);
@@ -54,6 +55,7 @@ private final PropertyRepository propertyRepository;
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
         repair.setTypeOfRepair(TypeOfRepair.PAINTING);
+        repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repair.setProperty(property);
         repair.setRepairDate(LocalDate.ofEpochDay(21/5/2024));
         repairRepository.save(repair);
@@ -61,6 +63,7 @@ private final PropertyRepository propertyRepository;
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
         repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
+        repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repair1.setProperty(property);
         repairRepository.save(repair1);
 
@@ -79,6 +82,7 @@ private final PropertyRepository propertyRepository;
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
         repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
+        repair4.setProperty(property);
         repairRepository.save(repair4);
     }
 }

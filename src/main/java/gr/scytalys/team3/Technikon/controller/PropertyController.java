@@ -8,15 +8,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/owner/")
-@CrossOrigin(origins = "http://localhost:5174", allowCredentials = "true")
+
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class PropertyController {
     private final PropertyService propertyService;
+
 
     @PostMapping("{ownerId}/property")
     public ResponseEntity<PropertyDTO> createProperty(@PathVariable long ownerId,@RequestBody PropertyDTO propertyDTO) {
@@ -49,7 +51,7 @@ public class PropertyController {
                 .updateProperty(propertyDTO), headers, HttpStatus.OK);
     }
     @DeleteMapping("{ownerId}/property/{propertyId}")
-    public ResponseEntity<String> deleteProperty(@PathVariable long propertyId) {
+    public ResponseEntity<String> deleteProperty(@PathVariable long ownerId, @PathVariable long propertyId) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("message",propertyService.deleteOrDeactivatePropertyById(propertyId));
         return new ResponseEntity<>(propertyService
