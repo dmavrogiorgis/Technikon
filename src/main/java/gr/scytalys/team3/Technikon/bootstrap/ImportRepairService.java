@@ -1,6 +1,8 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
 import com.github.javafaker.Faker;
+
+import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
@@ -42,8 +44,12 @@ private final PropertyRepository propertyRepository;
         propertyOwnerRepository.save(propertyOwner);
 
         Property property = new Property();
-        property.setPropertyIN(123);
+
+        property.setPropertyId(0);
+        property.setPropertyIN(123456789);
         property.setPropertyOwner(propertyOwner);
+        property.setPropertyOwner(propertyOwner);
+        property.setAddress("assdfads");
         propertyRepository.save(property);
 
         Property property1 = new Property();
@@ -55,6 +61,7 @@ private final PropertyRepository propertyRepository;
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
         repair.setTypeOfRepair(TypeOfRepair.PAINTING);
+        repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
         repair.setProperty(property);
         repair.setRepairDate(LocalDate.now());
         repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
@@ -63,7 +70,10 @@ private final PropertyRepository propertyRepository;
 
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
-        repair1.setTypeOfRepair(TypeOfRepair.FRAMES);
+
+        repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
+        repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
+
         repair1.setProperty(property);
         repair1.setRepairDate(LocalDate.now());
         repair1.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
@@ -87,6 +97,7 @@ private final PropertyRepository propertyRepository;
 
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
+
         repair4.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
         repair4.setProperty(property);
         repair4.setRepairDate(LocalDate.now());

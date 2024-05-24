@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+
 @AllArgsConstructor(onConstructor_ = {@Autowired})
 public class AdminController {
 
@@ -24,14 +26,14 @@ public class AdminController {
     public ResponseEntity<List<PropertyDTO>> getAllProperties(){
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "All Registered Properties found!");
-        return new ResponseEntity<>(propertyService.getAllProperties(), headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(propertyService.getAllProperties(), headers, HttpStatus.OK);
     }
 
     @GetMapping("/property/active")
     public ResponseEntity<List<PropertyDTO>> getAllActiveProperties(){
         HttpHeaders headers = new HttpHeaders();
         headers.add("message", "All Registered Properties found!");
-        return new ResponseEntity<>(propertyService.getAllActiveProperties(), headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(propertyService.getAllActiveProperties(), headers, HttpStatus.OK);
     }
 
 }
