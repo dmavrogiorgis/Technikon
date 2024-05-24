@@ -61,7 +61,6 @@ const UserManagement = ({children}) => {
     };
   
     const handleDelete = async (userTin) => {
-      console.log(userTin);
       try{
         const result = await deletePropertyOwner(authData.token, userTin);
         setResponse({ data: result.data, success: true, error: null })

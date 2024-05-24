@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Container, Paper, Grid, Box, Button} from '@mui/material';
+import { Typography, Container, Paper, Grid, Box} from '@mui/material';
 
 const UserDetails = ({authData}) => {
   return (
