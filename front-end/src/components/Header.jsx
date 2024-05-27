@@ -33,6 +33,9 @@ const Header = () => {
             <Link to="/properties">My properties</Link>
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Link to="/repairs">My Repairs</Link>
+          </Typography>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/login">Login</Link>
           </Typography>
         </Toolbar>
