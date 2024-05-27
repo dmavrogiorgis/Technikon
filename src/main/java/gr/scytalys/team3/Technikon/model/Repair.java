@@ -10,6 +10,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * The entity for the repairs that the property owner
+ * and the admin will create
+ * @author MichalisSpn
+ */
 
 @Data
 @Entity
@@ -27,7 +32,7 @@ public class Repair {
     private LocalDate repairDate;
     @Enumerated(EnumType.STRING)
     @NotNull
-    private StatusOfRepair statusOfRepair;
+    private StatusOfRepair statusOfRepair = StatusOfRepair.PENDING;
     private boolean isActive = true;
     @JsonIgnore
     @ManyToOne

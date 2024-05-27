@@ -1,10 +1,7 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
 import com.github.javafaker.Faker;
-import gr.scytalys.team3.Technikon.model.Property;
-import gr.scytalys.team3.Technikon.model.PropertyOwner;
-import gr.scytalys.team3.Technikon.model.Repair;
-import gr.scytalys.team3.Technikon.model.TypeOfRepair;
+import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -35,38 +32,60 @@ public class ImportRepairService {
     private void run(String... args) {
         Faker faker = new Faker();
 
+        PropertyOwner propertyOwner = new PropertyOwner();
+        propertyOwner.setTin("123456789");
+        propertyOwner.setName("mpampis");
+        propertyOwner.setSurname("tennes");
+        propertyOwner.setAddress("Lamia");
+        propertyOwner.setPhoneNumber("6946666666");
+        propertyOwner.setEmail("mathe@mpalitsa.gr");
+        propertyOwner.setUsername("tesseratesseradio");
+        propertyOwner.setPassword("passW0rd");
+        propertyOwnerRepository.save(propertyOwner);
+
         Property property = new Property();
-        property.setPropertyIN(Long.parseLong(faker.number().digits(9)));
+        property.setPropertyIN(123);
+        property.setPropertyOwner(propertyOwner);
+        propertyRepository.save(property);
 
         Property property1 = new Property();
-        property.setPropertyIN(Long.parseLong(faker.number().digits(9)));
+        property1.setPropertyIN(456);
+        property1.setPropertyOwner(propertyOwner);
+        propertyRepository.save(property1);
+        System.out.println(property1);
 
         Repair repair = new Repair();
         repair.setCostOfRepair(new BigDecimal(100));
         repair.setTypeOfRepair(TypeOfRepair.PAINTING);
-        repair.setTypeOfRepair(TypeOfRepair.valueOf("PAINTING"));
-        repair.setRepairDate(LocalDate.of(2024, 05, 14));
         repair.setProperty(property);
+        repair.setRepairDate(LocalDate.now());
+        repair.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
+        repairRepository.save(repair);
+        System.out.println(repair);
 
         Repair repair1 = new Repair();
         repair1.setCostOfRepair(new BigDecimal(300));
-        repair1.setTypeOfRepair(TypeOfRepair.INSULATION);
-        repair1.setTypeOfRepair(TypeOfRepair.valueOf("INSULATION"));
-        repair1.setRepairDate(LocalDate.of(2024, 05, 15));
+        repair1.setTypeOfRepair(TypeOfRepair.FRAMES);
         repair1.setProperty(property);
+        repair1.setRepairDate(LocalDate.now());
+        repair1.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
+        repairRepository.save(repair1);
 
         Repair repair2 = new Repair();
         repair2.setCostOfRepair(new BigDecimal(400));
-        repair2.setTypeOfRepair(TypeOfRepair.ELECTRICAL_WORK);
-        repair2.setTypeOfRepair(TypeOfRepair.valueOf("FRAMES"));
-        repair2.setRepairDate(LocalDate.of(2024, 05, 17));
-        repair.setProperty(property1);
+        repair2.setTypeOfRepair(TypeOfRepair.INSULATION);
+        repair2.setProperty(property1);
+        repair2.setRepairDate(LocalDate.now());
+        repair2.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
+        repairRepository.save(repair2);
 
         Repair repair3 = new Repair();
         repair3.setCostOfRepair(new BigDecimal(150));
         repair3.setTypeOfRepair(TypeOfRepair.PLUMBING);
-        repair3.setTypeOfRepair(TypeOfRepair.valueOf("PLUMBING"));
-        repair3.setRepairDate(LocalDate.of(2024, 05, 19));
+        repair3.setProperty(property1);
+        repair3.setRepairDate(LocalDate.now());
+        repair3.setStatusOfRepair(StatusOfRepair.IN_PROGRESS);
+        repairRepository.save(repair3);
 
         Repair repair4 = new Repair();
         repair4.setCostOfRepair(new BigDecimal(110));
