@@ -9,6 +9,7 @@ import gr.scytalys.team3.Technikon.mapper.RepairMapper;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.Repair;
 import gr.scytalys.team3.Technikon.model.StatusOfRepair;
+import gr.scytalys.team3.Technikon.model.TypeOfRepair;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
 import gr.scytalys.team3.Technikon.repository.specifications.RepairSpecifications;
 import gr.scytalys.team3.Technikon.service.*;
@@ -56,13 +57,7 @@ public class RepairServiceImpl implements RepairService {
         }
         Repair repair = repairMapper.toRepair(repairCreateDTO);
         repair.setStatusOfRepair(StatusOfRepair.PENDING);
-        switch (repair.getTypeOfRepair()) {
-            case FRAMES -> repair.setCostOfRepair(BigDecimal.valueOf(110));
-            case PAINTING -> repair.setCostOfRepair(BigDecimal.valueOf(100));
-            case PLUMBING -> repair.setCostOfRepair(BigDecimal.valueOf(150));
-            case INSULATION -> repair.setCostOfRepair(BigDecimal.valueOf(300));
-            case ELECTRICAL_WORK -> repair.setCostOfRepair(BigDecimal.valueOf(400));
-        }
+        setCost(repair.getTypeOfRepair(), repair);
         return repairMapper.toRepairResponseDTO(repairRepository.save(repair));
     }
 
@@ -192,6 +187,9 @@ public class RepairServiceImpl implements RepairService {
     public RepairResponseDTO updateRepair(long repairId, RepairUpdateDTO repairUpdateDTO) {
         Repair repair = repairRepository.findById(repairId).orElseThrow();
         repairValidator.validateRepairUpdate(repairUpdateDTO);
+        if(repair.getStatusOfRepair() != repairUpdateDTO.getStatusOfRepair() &&  repairUpdateDTO.getStatusOfRepair() != null){
+           setCost(repairUpdateDTO.getTypeOfRepair(), repair);
+        }
         if(repairUpdateDTO.getStatusOfRepair() != null){
             repair.setStatusOfRepair(repairUpdateDTO.getStatusOfRepair());
         }
@@ -206,5 +204,15 @@ public class RepairServiceImpl implements RepairService {
         }
         repairRepository.save(repair);
         return repairMapper.toRepairResponseDTO(repair);
+    }
+
+    public void setCost(TypeOfRepair typeOfRepair, Repair repair){
+        switch (typeOfRepair) {
+            case FRAMES -> repair.setCostOfRepair(BigDecimal.valueOf(110));
+            case PAINTING -> repair.setCostOfRepair(BigDecimal.valueOf(100));
+            case PLUMBING -> repair.setCostOfRepair(BigDecimal.valueOf(150));
+            case INSULATION -> repair.setCostOfRepair(BigDecimal.valueOf(300));
+            case ELECTRICAL_WORK -> repair.setCostOfRepair(BigDecimal.valueOf(400));
+        }
     }
 }

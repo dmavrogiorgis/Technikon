@@ -82,5 +82,4 @@ public interface RepairService {
      */
     RepairResponseDTO updateRepair(long repairId, RepairUpdateDTO repairUpdateDTO);
 
-//    RepairResponseDTO setCostOfRepair(RepairCreateDTO repairCreateDTO);
 }
