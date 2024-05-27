@@ -59,7 +59,7 @@ const AuthProvider = ({children}) => {
     };
 
     return (
-        <AuthContext.Provider value={{authData, loading, isAdmin, isUser, login, logout}} >
+        <AuthContext.Provider value={{authData, loading, isAdmin, isUser, login, logout }} >
             {children}
         </AuthContext.Provider>
     );
