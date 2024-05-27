@@ -47,6 +47,7 @@ const UpdateModal = ({open, handleClose, handleUpdate, userTin}) => {
             />
             <TextField
               fullWidth
+              type="password"
               id="updatePassword"
               label="Password"
               name="updatePassword"

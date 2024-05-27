@@ -1,8 +1,8 @@
 package gr.scytalys.team3.Technikon.bootstrap;
 
 import com.github.javafaker.Faker;
-import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.model.Admin;
+import gr.scytalys.team3.Technikon.model.*;
 import gr.scytalys.team3.Technikon.model.Property;
 import gr.scytalys.team3.Technikon.model.PropertyOwner;
 import gr.scytalys.team3.Technikon.model.Repair;
@@ -24,11 +24,11 @@ import java.time.LocalDate;
 @Configuration
 @Slf4j
 public class ImportRepairService {
-    private final RepairRepository repairRepository;
-    private final AdminRepository adminRepository;
-    private final PropertyOwnerRepository propertyOwnerRepository;
-    private final PropertyRepository propertyRepository;
-    private final PasswordEncoder encoder;
+private final RepairRepository repairRepository;
+private final AdminRepository adminRepository;
+private final PropertyOwnerRepository propertyOwnerRepository;
+private final PropertyRepository propertyRepository;
+private final PasswordEncoder encoder;
 
     private final static int numOfIterations = 20;
 
