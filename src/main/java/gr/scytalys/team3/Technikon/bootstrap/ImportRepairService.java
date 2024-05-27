@@ -63,12 +63,12 @@ private final PasswordEncoder encoder;
 
         Admin admin = new Admin();
         admin.setTin("123456789");
-        admin.setName("dimitris");
-        admin.setSurname("mav");
-        admin.setAddress("Kati");
-        admin.setPhoneNumber("6976500964");
-        admin.setEmail("dim@gmail.com");
-        admin.setUsername("dimmav");
+        admin.setName("admin");
+        admin.setSurname("admin");
+        admin.setAddress("admin");
+        admin.setPhoneNumber("6971717665");
+        admin.setEmail("admin@gmail.com");
+        admin.setUsername("admin");
         admin.setPassword(encoder.encode("1234"));
         admin.setActive(true);
 
@@ -76,7 +76,7 @@ private final PasswordEncoder encoder;
 
         Faker faker = new Faker();
         for (int i=0; i<numOfIterations; i++){
-            PropertyOwner po = createRandomPO();
+            PropertyOwner po = createRandomPO(i);
             propertyOwnerRepository.save(po);
 
             double randomNum = Math.random();
@@ -90,7 +90,7 @@ private final PasswordEncoder encoder;
         }
     }
 
-    public PropertyOwner createRandomPO(){
+    public PropertyOwner createRandomPO(int number){
         Faker faker = new Faker();
 
         PropertyOwner po = new PropertyOwner();
@@ -98,10 +98,10 @@ private final PasswordEncoder encoder;
         po.setName(faker.name().firstName());
         po.setSurname(faker.name().lastName());
         po.setAddress(faker.address().fullAddress());
-        po.setPhoneNumber("69" + faker.numerify("##########"));
+        po.setPhoneNumber("69" + faker.numerify("########"));
         po.setEmail(faker.internet().emailAddress());
-        po.setUsername(faker.name().username());
-        po.setPassword(faker.internet().password());
+        po.setUsername("user" + number);
+        po.setPassword(encoder.encode("1234"));
         po.setActive(true);
         return po;
     }
