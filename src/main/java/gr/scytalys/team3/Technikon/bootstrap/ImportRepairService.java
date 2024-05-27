@@ -30,7 +30,6 @@ public class ImportRepairService {
     }
 
     private void run(String... args) {
-        Faker faker = new Faker();
 
         PropertyOwner propertyOwner = new PropertyOwner();
         propertyOwner.setTin("123456789");
@@ -91,7 +90,7 @@ public class ImportRepairService {
         repair4.setCostOfRepair(new BigDecimal(110));
         repair4.setTypeOfRepair(TypeOfRepair.FRAMES);
         repair4.setTypeOfRepair(TypeOfRepair.valueOf("ELECTRICAL_WORK"));
-        repair4.setRepairDate(LocalDate.of(2024, 05, 20));
+        repair4.setRepairDate(LocalDate.of(2024, 5, 20));
 
         for (int i=0; i<numOfIterations; i++){
             PropertyOwner po = createRandomPO();

@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PropertyOwnerDTO {
-
+public class PropertyOwnerResponseDTO {
+    private long id;
     private String tin;
     private String name;
     private String surname;
@@ -15,9 +15,5 @@ public class PropertyOwnerDTO {
     private String email;
     private String username;
     private String password;
-    private boolean isActive = true;
+    private boolean isActive;
 }
-
-
-
-
