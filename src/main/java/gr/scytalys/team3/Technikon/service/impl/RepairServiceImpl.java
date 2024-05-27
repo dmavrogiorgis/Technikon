@@ -190,7 +190,7 @@ public class RepairServiceImpl implements RepairService {
         if(repair.getStatusOfRepair() != repairUpdateDTO.getStatusOfRepair() &&  repairUpdateDTO.getStatusOfRepair() != null){
            setCost(repairUpdateDTO.getTypeOfRepair(), repair);
         }
-        if(repairUpdateDTO.getStatusOfRepair() != null){
+        if(repairUpdateDTO.getStatusOfRepair() != null && repairUpdateDTO.getStatusOfRepair() != StatusOfRepair.COMPLETE){
             repair.setStatusOfRepair(repairUpdateDTO.getStatusOfRepair());
         }
         if(repairUpdateDTO.getTypeOfRepair() != null){
