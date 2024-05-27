@@ -31,7 +31,6 @@ const Login = () => {
         };
 
         const result = await login(transformedData);
-        console.log('authdata:', JSON.parse(localStorage.getItem('authData')));
         if(result.success){
           if(result.isAdmin){
             navigate('/admin');

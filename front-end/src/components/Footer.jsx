@@ -5,20 +5,8 @@ const Footer = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="primary" sx={{ top: 'auto', bottom: 0 }}>
         <Toolbar>
-          <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-            <Link href="/about" color="inherit">
-              About Us
-            </Link>
-          </Typography>
-          <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-            <Link href="/contact" color="inherit">
-              Contact Us
-            </Link>
-          </Typography>
-          <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-            <Link href="/privacy" color="inherit">
-              Privacy Policy
-            </Link>
+          <Typography variant="body1" color="inherit" sx={{ flexGrow: 1, textAlign: 'center' }}>
+            © 2024 Technikon Team 3
           </Typography>
         </Toolbar>
       </AppBar>

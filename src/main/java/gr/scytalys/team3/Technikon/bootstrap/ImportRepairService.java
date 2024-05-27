@@ -2,6 +2,11 @@ package gr.scytalys.team3.Technikon.bootstrap;
 
 import com.github.javafaker.Faker;
 import gr.scytalys.team3.Technikon.model.*;
+import gr.scytalys.team3.Technikon.model.Admin;
+import gr.scytalys.team3.Technikon.model.Property;
+import gr.scytalys.team3.Technikon.model.PropertyOwner;
+import gr.scytalys.team3.Technikon.model.Repair;
+import gr.scytalys.team3.Technikon.repository.AdminRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyOwnerRepository;
 import gr.scytalys.team3.Technikon.repository.PropertyRepository;
 import gr.scytalys.team3.Technikon.repository.RepairRepository;
@@ -10,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,8 +25,10 @@ import java.time.LocalDate;
 @Slf4j
 public class ImportRepairService {
     private final RepairRepository repairRepository;
+    private final AdminRepository adminRepository;
     private final PropertyOwnerRepository propertyOwnerRepository;
     private final PropertyRepository propertyRepository;
+    private final PasswordEncoder encoder;
 
     private final static int numOfIterations = 20;
 
@@ -92,8 +100,22 @@ public class ImportRepairService {
         repair4.setTypeOfRepair(TypeOfRepair.valueOf("ELECTRICAL_WORK"));
         repair4.setRepairDate(LocalDate.of(2024, 5, 20));
 
+        Admin admin = new Admin();
+        admin.setTin("123456789");
+        admin.setName("admin");
+        admin.setSurname("admin");
+        admin.setAddress("admin");
+        admin.setPhoneNumber("6971717665");
+        admin.setEmail("admin@gmail.com");
+        admin.setUsername("admin");
+        admin.setPassword(encoder.encode("1234"));
+        admin.setActive(true);
+
+        adminRepository.save(admin);
+
+        Faker faker = new Faker();
         for (int i=0; i<numOfIterations; i++){
-            PropertyOwner po = createRandomPO();
+            PropertyOwner po = createRandomPO(i);
             propertyOwnerRepository.save(po);
 
             double randomNum = Math.random();
@@ -113,7 +135,7 @@ public class ImportRepairService {
         repairRepository.save(repair4);
     }
 
-    public PropertyOwner createRandomPO(){
+    public PropertyOwner createRandomPO(int number){
         Faker faker = new Faker();
 
         PropertyOwner po = new PropertyOwner();
@@ -121,10 +143,10 @@ public class ImportRepairService {
         po.setName(faker.name().firstName());
         po.setSurname(faker.name().lastName());
         po.setAddress(faker.address().fullAddress());
-        po.setPhoneNumber("69" + faker.numerify("##########"));
+        po.setPhoneNumber("69" + faker.numerify("########"));
         po.setEmail(faker.internet().emailAddress());
-        po.setUsername(faker.name().username());
-        po.setPassword(faker.internet().password());
+        po.setUsername("user" + number);
+        po.setPassword(encoder.encode("1234"));
         po.setActive(true);
         return po;
     }

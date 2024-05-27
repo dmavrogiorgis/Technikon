@@ -32,8 +32,10 @@ public class PropertyOwnerController {
                                                                         Authentication authentication) {
         if (authentication.getAuthorities().stream().noneMatch(sga -> sga.getAuthority().equals("ROLE_ADMIN"))) {
             UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
-            if (!userInfoDetails.getTin().equals(tin)){
-                throw new AccessDeniedException("Unauthorized to search property owner with TIN: " + tin);
+            if ( (tin!=null && !userInfoDetails.getTin().equals(tin)) ||
+                    (email!=null && !userInfoDetails.getEmail().equals(email)) ||
+                        (username!=null && !userInfoDetails.getUsername().equals(username))){
+                throw new AccessDeniedException("Unauthorized to search for this property owner");
             }
         }
 
