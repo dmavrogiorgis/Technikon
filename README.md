@@ -1,4 +1,3 @@
-READ.md
 ## Technikon - The Technicians on the Web
  
  
