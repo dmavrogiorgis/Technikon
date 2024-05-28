@@ -53,14 +53,12 @@ public class RepairController {
     @GetMapping("{propertyId}/repair/{repairId}")
     ResponseEntity<RepairResponseDTO> getRepairById(@PathVariable long propertyId, @PathVariable long repairId,
                                                     Authentication authentication){
-        System.out.println("IN CONTROLLER");
+
         if (authentication.getAuthorities().stream().noneMatch(sga -> sga.getAuthority().equals("ROLE_ADMIN"))) {
-            System.out.println("NOT ADMIN");
             UserInfoDetails userInfoDetails = (UserInfoDetails) authentication.getPrincipal();
             if(propertyId == 0 || propertyService
                     .findAllPropertiesByOwnerId(userInfoDetails.getId())
                     .stream().noneMatch(prop -> prop.getId() == propertyId)) {
-                System.out.println("ERROR");
                 throw new AccessDeniedException("Unauthorized to get this repair");
             }
         }
