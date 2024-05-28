@@ -1,39 +1,53 @@
+READ.md
 ## Technikon - The Technicians on the Web
-
+ 
+ 
+#### Docker
+ 
 Create a ```Docker``` PostgreSQL database:
-
+ 
     docker run --name technikon -d -p 5432:5432 -e POSTGRES_PASSWORD=@technikon@@@ -e POSTGRES_USER=team3 -e POSTGRES_DB=technikon postgres:alpine
-
+ 
 or just ```restart``` it, in case you have already created it, either from a terminal:
-
+ 
     docker restart technikon
-
+ 
 or with the ```play``` button of the Docker Desktop App.
-
-Swagger URL:
-
+ 
+---
+ 
+#### Application
+ 
+Run the ```TechnikonApplication``` Java class to initialize the Application.
+ 
+---
+ 
+#### API Endpoints
+ 
+View the list of available endpoint from this Swagger URL:
+ 
     http://localhost:8080/swagger-ui/index.html
-
-#### Postman Testing
-
-To post a user, create a ```POST``` request using the URL:
-
-    http://localhost:8080/api/owner
-
-and in the body of the request fill the json:
-
-    {
-      "id": 0,
-      "tin": "string",
-      "name": "string",
-      "surname": "string",
-      "address": "string",
-      "phoneNumber": "string",
-      "email": "string",
-      "username": "string",
-      "password": "string",
-      "active": true
-    }
-
-As a confirmation, the ```Headers``` should contain: ```Key: Content-Type``` with the corresponding ```Value: application/json```.
-
+ 
+---
+ 
+#### Front-End
+ 
+Navigate to the path of the ```front-end``` of the directory:
+ 
+    cd path_to_Technikon\front-end
+ 
+for example:
+ 
+    cd C:\IntelliJprojects\Technikon\front-end
+ 
+and run:
+ 
+    npm i
+ 
+and then:
+ 
+    npm run dev
+ 
+Then the Application URL is exposed:
+ 
+     http://localhost:5173/
